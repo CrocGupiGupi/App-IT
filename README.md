@@ -32,6 +32,11 @@ No hay que tocar código.
 
 Títulos `#`–`####`, párrafos, **negrita**, *cursiva*, `código`, enlaces, listas (con un nivel de anidado), tablas, citas `>`, reglas `---` y bloques de código con ``` (sin resaltado de sintaxis).
 
+## Funciones de estudio
+
+- Test al final de cada lección, **repaso aleatorio** (10 preguntas) y **simulacro cronometrado** (hasta 20 preguntas, 90 s por pregunta) que al terminar indica qué lecciones repasar.
+- **Buscador** en el menú lateral sobre el texto de todas las lecciones.
+
 ## Datos del usuario
 
-El progreso (lecciones completadas y notas de los tests) se guarda en `localStorage` del navegador: es local a cada dispositivo.
+El progreso (lecciones completadas y notas de los tests) se guarda en `localStorage` del navegador: es local a cada dispositivo. Para pasarlo de un dispositivo a otro, usa **Exportar / Importar progreso** en la página de inicio.

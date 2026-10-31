@@ -108,6 +108,7 @@ function gradeQuiz(root, qs) {
     const got = [...fs.querySelectorAll('input:checked')].map(x => +x.value).sort().join();
     const good = want === got;
     if (good) ok++;
+    q._good = good;
     fs.classList.add(good ? 'good' : 'bad');
     fs.querySelectorAll('.opt').forEach((l, j) => l.classList.toggle('right', right.includes(j)));
     fs.querySelectorAll('input').forEach(x => { x.disabled = true; });
@@ -141,7 +142,7 @@ const doneCount = c => c.lessons.filter(l => progress()[`${c.id}/${l.id}`]?.done
 
 async function renderNav(cur) {
   const courses = await Promise.all((await fieldIds()).map(course));
-  $('#nav').innerHTML = '<h2>Campos</h2>' + courses.map(c => {
+  $('#nav').innerHTML = '<form id="search" role="search"><input type="search" name="q" placeholder="Buscar en el temario…" aria-label="Buscar en el temario" value="' + esc(cur.q || '') + '"></form><h2>Campos</h2>' + courses.map(c => {
     const open = c.id === cur.fid;
     return `<a class="field${open && !cur.lid ? ' cur' : ''}" href="#/f/${c.id}"><span>${c.icon} ${esc(c.title)}</span><span class="muted">${doneCount(c)}/${c.lessons.length}</span></a>` +
       (open ? '<div class="lessons">' + c.lessons.map(l => {
@@ -172,7 +173,7 @@ async function courseView(fid) {
         const d = progress()[`${fid}/${l.id}`];
         return `<li><a href="#/f/${fid}/${l.id}"><span>${d?.done ? '✔ ' : ''}${esc(l.title)}</span><small class="muted">${l.minutes} min${d?.score != null ? ` · test ${d.score}/${d.of}` : ''}</small></a></li>`;
       }).join('') + '</ul></section>').join('') +
-    `<div class="row"><a class="btn" href="#/f/${fid}/repaso">Repaso aleatorio (10 preguntas)</a></div>`);
+    `<div class="row"><a class="btn" href="#/f/${fid}/repaso">Repaso aleatorio (10 preguntas)</a><a class="btn ghost" href="#/f/${fid}/simulacro">Simulacro cronometrado</a></div>`);
 }
 
 async function lessonView(fid, lid) {
@@ -205,20 +206,101 @@ async function reviewView(fid) {
   const quiz = await load(`content/${fid}/quiz.json`).catch(() => ({}));
   const qs = shuffle(Object.values(quiz).flat()).slice(0, 10);
   show(`<p><a href="#/f/${fid}">← ${esc(c.title)}</a></p><h1>Repaso aleatorio</h1><p class="muted">Preguntas mezcladas de todo el campo.</p><div id="quiz"></div>` +
-    `<div class="row"><a class="btn ghost" href="#/f/${fid}/repaso" onclick="setTimeout(()=>location.reload())">Nuevo repaso</a></div>`);
+    '<div class="row"><button class="btn ghost" type="button" id="again">Nuevo repaso</button></div>');
   mountQuiz($('#quiz'), qs);
+  $('#again').onclick = () => reviewView(fid);
+}
+
+let timer = null;
+const stopTimer = () => { clearInterval(timer); timer = null; };
+
+async function mockView(fid) {
+  const c = await course(fid);
+  const quiz = await load(`content/${fid}/quiz.json`).catch(() => ({}));
+  const all = Object.entries(quiz).flatMap(([lesson, qs]) => qs.map(q => ({ ...q, lesson })));
+  const qs = shuffle(all).slice(0, Math.min(20, all.length));
+  const total = qs.length * 90; // 90 s por pregunta
+  show(`<p><a href="#/f/${fid}">← ${esc(c.title)}</a></p><h1>Simulacro cronometrado</h1>` +
+    `<p class="muted">${qs.length} preguntas · ${Math.round(total / 60)} min. Al agotarse el tiempo se corrige automáticamente.</p>` +
+    '<p class="timer" role="timer" aria-live="off"><strong id="clock"></strong></p><div id="quiz"></div><div id="weak"></div>');
+  let left = total;
+  const draw = () => { $('#clock').textContent = `⏱ ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`; };
+  draw();
+  mountQuiz($('#quiz'), qs, (ok, of) => {
+    stopTimer();
+    const titles = Object.fromEntries(c.lessons.map(l => [l.id, l.title]));
+    const miss = {};
+    qs.filter(q => !q._good).forEach(q => { miss[q.lesson] = (miss[q.lesson] || 0) + 1; });
+    const rows = Object.entries(miss).sort((a, b) => b[1] - a[1]);
+    $('#weak').innerHTML = `<h2>Resultado: ${Math.round(100 * ok / of)} %</h2>` + (rows.length
+      ? '<p>Repasa estas lecciones:</p><ul>' + rows.map(([id, n]) => `<li><a href="#/f/${fid}/${id}">${esc(titles[id] || id)}</a> (${n} fallo${n > 1 ? 's' : ''})</li>`).join('') + '</ul>'
+      : '<p>¡Sin fallos!</p>');
+  });
+  timer = setInterval(() => {
+    left--; draw();
+    if (left <= 0) { stopTimer(); const b = $('#check'); if (b) b.click(); }
+  }, 1000);
+}
+
+let searchIndex = null;
+async function searchView(q) {
+  show(`<h1>Resultados para «${esc(q)}»</h1><p class="muted" id="st">Buscando…</p><ul class="list" id="sr"></ul>`);
+  if (!searchIndex) {
+    const courses = await Promise.all((await fieldIds()).map(course));
+    searchIndex = (await Promise.all(courses.flatMap(c => c.lessons.map(async l => ({
+      fid: c.id, field: c.title, id: l.id, title: l.title, text: await load(`content/${c.id}/${l.file}`, 'text').catch(() => '')
+    }))))).filter(Boolean);
+  }
+  const term = q.toLowerCase();
+  const hits = searchIndex.map(d => {
+    const i = d.text.toLowerCase().indexOf(term);
+    const inTitle = d.title.toLowerCase().includes(term);
+    return (i >= 0 || inTitle) ? { d, i, score: (inTitle ? 2 : 0) + (i >= 0 ? 1 : 0) } : null;
+  }).filter(Boolean).sort((a, b) => b.score - a.score);
+  $('#st').textContent = hits.length ? `${hits.length} lección(es)` : 'Sin resultados.';
+  $('#sr').innerHTML = hits.map(({ d, i }) => {
+    const snip = i >= 0 ? '…' + d.text.slice(Math.max(0, i - 50), i + 90).replace(/[#*`|>\n]+/g, ' ') + '…' : '';
+    return `<li><a href="#/f/${d.fid}/${d.id}"><span><strong>${esc(d.title)}</strong><br><small class="muted">${esc(snip)}</small></span><small class="muted">${esc(d.field)}</small></a></li>`;
+  }).join('');
+}
+
+function dataTools() {
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = '<button class="btn ghost" type="button" id="exp">Exportar progreso</button><button class="btn ghost" type="button" id="imp">Importar progreso</button><input type="file" id="file" accept="application/json" hidden>';
+  main.appendChild(row);
+  $('#exp').onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(progress(), null, 2)], { type: 'application/json' }));
+    a.download = 'estudio-it-progreso.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  $('#imp').onclick = () => $('#file').click();
+  $('#file').onchange = async e => {
+    try {
+      const data = JSON.parse(await e.target.files[0].text());
+      if (typeof data !== 'object' || Array.isArray(data) || !data) throw new Error('formato');
+      store.set('progress', { ...progress(), ...data });
+      router();
+    } catch { alert('El fichero no es un progreso válido.'); }
+  };
 }
 
 async function router() {
   document.body.classList.remove('navopen');
   $('#scrim').hidden = true;
   $('#menu').setAttribute('aria-expanded', 'false');
+  stopTimer();
   const [, kind, fid, lid] = location.hash.split('/');
   try {
-    await renderNav({ fid: kind === 'f' ? fid : null, lid });
-    if (kind !== 'f') await home();
+    const q = kind === 'buscar' ? decodeURIComponent(fid || '') : '';
+    await renderNav({ fid: kind === 'f' ? fid : null, lid, q });
+    if (kind === 'buscar' && q.trim()) await searchView(q.trim());
+    else if (kind !== 'f') { await home(); dataTools(); }
     else if (!lid) await courseView(fid);
     else if (lid === 'repaso') await reviewView(fid);
+    else if (lid === 'simulacro') await mockView(fid);
     else await lessonView(fid, lid);
   } catch (e) {
     show(`<p>No se pudo cargar el contenido (${esc(e.message)}). <a href="#/">Volver al inicio</a></p>`);
@@ -231,6 +313,11 @@ $('#menu').onclick = () => {
   $('#menu').setAttribute('aria-expanded', String(open));
 };
 $('#scrim').onclick = () => $('#menu').click();
+$('#nav').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = new FormData(e.target).get('q').trim();
+  if (v) location.hash = '#/buscar/' + encodeURIComponent(v);
+});
 window.addEventListener('hashchange', router);
 router();
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
