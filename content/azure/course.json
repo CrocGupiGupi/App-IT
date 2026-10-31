@@ -1,0 +1,18 @@
+{
+  "id": "azure",
+  "title": "Microsoft Azure",
+  "icon": "☁️",
+  "description": "Servicios de Azure: identidad, cómputo, almacenamiento, redes, datos, seguridad e IaC.",
+  "certs": ["AZ-900 (Azure Fundamentals)", "AZ-104 (Azure Administrator)", "AZ-204 (Azure Developer)", "AZ-305 (Solutions Architect Expert)", "AZ-400 (DevOps Engineer Expert)", "AZ-500 (Security Engineer)"],
+  "note": "Microsoft actualiza con frecuencia los exámenes y renombra servicios (p. ej. Azure AD → Microsoft Entra ID). **Revisa la guía de estudio vigente en Microsoft Learn** y practica en una suscripción gratuita.",
+  "lessons": [
+    { "id": "01-fundamentos", "title": "Fundamentos cloud y jerarquía de Azure", "level": "Fundamentos", "minutes": 14, "file": "01-fundamentos.md" },
+    { "id": "02-identidad-gobernanza", "title": "Identidad, RBAC y gobernanza", "level": "Fundamentos", "minutes": 16, "file": "02-identidad-gobernanza.md" },
+    { "id": "03-computo", "title": "Cómputo: VM, App Service, Functions y contenedores", "level": "Intermedio", "minutes": 18, "file": "03-computo.md" },
+    { "id": "04-almacenamiento", "title": "Almacenamiento", "level": "Intermedio", "minutes": 14, "file": "04-almacenamiento.md" },
+    { "id": "05-redes", "title": "Redes", "level": "Intermedio", "minutes": 18, "file": "05-redes.md" },
+    { "id": "06-datos-mensajeria", "title": "Bases de datos y mensajería", "level": "Intermedio", "minutes": 15, "file": "06-datos-mensajeria.md" },
+    { "id": "07-seguridad-monitorizacion", "title": "Seguridad, monitorización y continuidad", "level": "Avanzado", "minutes": 17, "file": "07-seguridad-monitorizacion.md" },
+    { "id": "08-iac-devops", "title": "Infraestructura como código y DevOps", "level": "Avanzado", "minutes": 16, "file": "08-iac-devops.md" }
+  ]
+}

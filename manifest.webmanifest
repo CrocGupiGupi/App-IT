@@ -1,0 +1,14 @@
+{
+  "name": "Estudio IT",
+  "short_name": "Estudio IT",
+  "description": "Temario y tests para certificaciones cloud y contenedores",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "es",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

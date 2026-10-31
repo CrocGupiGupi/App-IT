@@ -1,0 +1,52 @@
+{
+  "01-fundamentos": [
+    { "q": "¿Cuál es el orden correcto de la jerarquía de Azure (de mayor a menor)?", "options": ["Suscripción › Management Group › Grupo de recursos › Recurso", "Management Group › Suscripción › Grupo de recursos › Recurso", "Grupo de recursos › Suscripción › Recurso", "Tenant › Recurso › Suscripción"], "answer": 1, "explain": "Las políticas y roles se heredan hacia abajo." },
+    { "q": "En el modelo de responsabilidad compartida, ¿qué es **siempre** responsabilidad del cliente?", "options": ["La seguridad física del centro de datos", "Los datos y las identidades", "El hipervisor", "La red troncal"], "answer": 1, "explain": "Datos, identidades y dispositivos/cuentas nunca son del proveedor." },
+    { "q": "¿Qué protege frente al fallo de un centro de datos completo dentro de una región?", "options": ["Availability Set", "Availability Zones", "Etiquetas", "Un bloqueo de recursos"], "answer": 1, "explain": "Las zonas son centros de datos físicamente separados." },
+    { "q": "¿Qué cobra Azure por defecto en tráfico de red?", "options": ["Entrada y salida", "Solo la entrada", "Solo la salida hacia Internet", "Nada"], "answer": 2, "explain": "La entrada de datos es gratuita." }
+  ],
+  "02-identidad-gobernanza": [
+    { "q": "¿Qué rol puede crear recursos pero **no** asignar roles a otros?", "options": ["Owner", "Contributor", "Reader", "User Access Administrator"], "answer": 1, "explain": "Owner sí puede asignar; Contributor no." },
+    { "q": "Una app en una VM debe leer un secreto de Key Vault sin guardar credenciales. ¿Qué usas?", "options": ["Una clave de cuenta", "Una managed identity con RBAC", "Una contraseña en el código", "Un SAS"], "answer": 1, "explain": "Las managed identities eliminan la gestión de secretos." },
+    { "q": "Quieres **impedir** crear recursos fuera de West Europe. ¿Qué usas?", "options": ["RBAC", "Azure Policy con efecto Deny", "Un tag", "Un NSG"], "answer": 1, "explain": "RBAC controla usuarios; Policy controla propiedades de los recursos." },
+    { "q": "Un bloqueo `CanNotDelete` en un grupo de recursos...", "options": ["Impide leer los recursos", "Impide borrar, incluso al Owner, hasta quitar el bloqueo", "Solo afecta a los invitados", "Impide modificarlos"], "answer": 1, "explain": "Se hereda a los recursos del grupo." },
+    { "q": "¿Qué ofrece PIM?", "options": ["Cifrado de discos", "Acceso privilegiado just-in-time a roles", "Balanceo de carga", "Copias de seguridad"], "answer": 1, "explain": "Requiere Entra ID P2." }
+  ],
+  "03-computo": [
+    { "q": "Necesitas ejecutar código por eventos, con escala a cero y pago por ejecución:", "options": ["Virtual Machines", "Azure Functions (Consumption)", "AKS", "App Service Basic"], "answer": 1, "explain": "Es el modelo serverless." },
+    { "q": "Una VM está **desasignada**. ¿Qué sigue cobrándose?", "options": ["El cómputo", "Los discos y recursos asociados, no el cómputo", "Nada", "Solo la IP"], "answer": 1, "explain": "Parar la VM solo desde el SO no libera el cómputo." },
+    { "q": "Quieres microservicios en contenedores con escala a cero sin gestionar Kubernetes:", "options": ["AKS", "Azure Container Apps", "VMSS", "Azure Batch"], "answer": 1, "explain": "Container Apps oculta el clúster." },
+    { "q": "¿Qué permite desplegar una versión nueva y cambiar sin tiempo de inactividad en App Service?", "options": ["Deployment slots con swap", "Availability set", "Reservas", "ExpressRoute"], "answer": 0, "explain": "Los slots requieren planes Standard o superior." }
+  ],
+  "04-almacenamiento": [
+    { "q": "¿Qué redundancia protege frente a la pérdida de una región entera y de una zona?", "options": ["LRS", "ZRS", "GRS", "GZRS"], "answer": 3, "explain": "GZRS = ZRS en la primaria + LRS en la pareja." },
+    { "q": "¿Qué nivel de blob está **offline** y requiere rehidratación?", "options": ["Hot", "Cool", "Cold", "Archive"], "answer": 3, "explain": "La rehidratación puede tardar horas." },
+    { "q": "¿Cuál es la forma más segura de conceder acceso temporal y limitado a un blob?", "options": ["Compartir la clave de cuenta", "SAS de delegación de usuario (firmada con Entra ID)", "Hacer público el contenedor", "Una contraseña"], "answer": 1, "explain": "Evita exponer las claves de cuenta." },
+    { "q": "Para reducir costes moviendo blobs antiguos a Cool/Archive automáticamente:", "options": ["Lifecycle management", "Azure Backup", "Soft delete", "Replicación de objetos"], "answer": 0, "explain": "Se definen reglas por edad." }
+  ],
+  "05-redes": [
+    { "q": "El peering entre las VNet A–B y B–C... ", "options": ["Hace que A y C se vean", "No es transitivo: A y C no se ven", "Es automático", "Solo funciona en la misma región"], "answer": 1, "explain": "Hay que peerear A–C o usar un hub/NVA/Virtual WAN." },
+    { "q": "¿Qué servicio balancea tráfico HTTP **global** con WAF y CDN?", "options": ["Load Balancer", "Application Gateway", "Azure Front Door", "Traffic Manager"], "answer": 2, "explain": "Application Gateway es regional; Traffic Manager actúa por DNS." },
+    { "q": "¿Qué crea una **IP privada** de un servicio PaaS en tu VNet?", "options": ["Service endpoint", "Private Endpoint", "NAT Gateway", "Peering"], "answer": 1, "explain": "El service endpoint no da IP privada." },
+    { "q": "Las reglas NSG se evalúan...", "options": ["De mayor a menor número de prioridad", "De menor a mayor número de prioridad", "Alfabéticamente", "Todas a la vez"], "answer": 1, "explain": "La regla con número más bajo gana." },
+    { "q": "Conexión privada dedicada a Azure que no atraviesa Internet:", "options": ["VPN Site-to-Site", "ExpressRoute", "Point-to-Site", "Bastion"], "answer": 1, "explain": "Se contrata con un proveedor de conectividad." }
+  ],
+  "06-datos-mensajeria": [
+    { "q": "¿Cuál es el nivel de consistencia **por defecto** de Cosmos DB?", "options": ["Strong", "Session", "Eventual", "Consistent prefix"], "answer": 1, "explain": "Es el más utilizado." },
+    { "q": "Migrar un SQL Server local con casi ningún cambio a un servicio PaaS:", "options": ["Azure SQL Database", "SQL Managed Instance", "Cosmos DB", "Table Storage"], "answer": 1, "explain": "MI ofrece alta compatibilidad con la instancia." },
+    { "q": "Ingesta de millones de eventos de telemetría por segundo:", "options": ["Event Grid", "Event Hubs", "Storage Queue", "Logic Apps"], "answer": 1, "explain": "Es un servicio de streaming compatible con Kafka." },
+    { "q": "Mensajería empresarial con temas, suscripciones y dead-letter:", "options": ["Service Bus", "Event Grid", "Storage Queue", "Redis"], "answer": 0, "explain": "Service Bus ofrece garantías avanzadas." }
+  ],
+  "07-seguridad-monitorizacion": [
+    { "q": "¿Con qué lenguaje se consultan los datos de Log Analytics?", "options": ["SQL", "KQL", "PowerShell", "JMESPath"], "answer": 1, "explain": "Kusto Query Language." },
+    { "q": "¿Qué protege secretos de borrados accidentales o maliciosos en Key Vault?", "options": ["Soft delete y purge protection", "Etiquetas", "Un NSG", "Un tag de coste"], "answer": 0, "explain": "Purge protection impide la purga hasta fin de retención." },
+    { "q": "Replicar VMs a otra región para recuperación ante desastres:", "options": ["Azure Backup", "Azure Site Recovery", "Traffic Manager", "Availability Set"], "answer": 1, "explain": "Backup protege datos; Site Recovery orquesta el DR." },
+    { "q": "¿Cuáles son pilares del Well-Architected Framework? (elige dos)", "options": ["Fiabilidad", "Optimización de costes", "Marketing", "Gamificación"], "answer": [0, 1], "explain": "Los cinco: fiabilidad, seguridad, costes, excelencia operativa y eficiencia del rendimiento." }
+  ],
+  "08-iac-devops": [
+    { "q": "Ves los cambios que haría un despliegue Bicep antes de aplicarlos con:", "options": ["az deployment group what-if", "az group show", "az vm list", "az bicep lint"], "answer": 0, "explain": "what-if es una simulación." },
+    { "q": "En el modo de despliegue **completo** de ARM...", "options": ["Se conservan los recursos que no están en la plantilla", "Se eliminan los recursos del grupo que no están en la plantilla", "No se cambia nada", "Falla siempre"], "answer": 1, "explain": "Úsalo con precaución." },
+    { "q": "¿Cómo autenticar GitHub Actions en Azure sin guardar secretos?", "options": ["Contraseña de usuario", "Identidad federada con OIDC", "Clave de cuenta de almacenamiento", "Certificado compartido"], "answer": 1, "explain": "Se configura una credencial federada en la app de Entra ID." },
+    { "q": "Bicep es...", "options": ["Un lenguaje que se compila a plantillas ARM", "Una base de datos", "Un servicio de red", "Un tipo de VM"], "answer": 0, "explain": "Es la alternativa moderna a ARM JSON." }
+  ]
+}

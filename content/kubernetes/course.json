@@ -1,0 +1,18 @@
+{
+  "id": "kubernetes",
+  "title": "Kubernetes",
+  "icon": "☸️",
+  "description": "Arquitectura, objetos, redes, almacenamiento, seguridad y operación de clústeres.",
+  "certs": ["KCNA (Kubernetes and Cloud Native Associate)", "CKAD (Application Developer)", "CKA (Administrator)", "CKS (Security Specialist)", "KCSA (Security Associate)"],
+  "note": "CKA, CKAD y CKS son exámenes **prácticos** en terminal con acceso a la documentación oficial; KCNA y KCSA son tipo test. Verifica versión, duración y dominios en training.linuxfoundation.org.",
+  "lessons": [
+    { "id": "01-arquitectura", "title": "Arquitectura y conceptos", "level": "Fundamentos", "minutes": 14, "file": "01-arquitectura.md" },
+    { "id": "02-kubectl-yaml", "title": "kubectl, YAML y entorno local", "level": "Fundamentos", "minutes": 14, "file": "02-kubectl-yaml.md" },
+    { "id": "03-workloads", "title": "Pods, Deployments y otras cargas", "level": "Fundamentos", "minutes": 18, "file": "03-workloads.md" },
+    { "id": "04-servicios-red", "title": "Servicios, Ingress y DNS", "level": "Intermedio", "minutes": 16, "file": "04-servicios-red.md" },
+    { "id": "05-config-almacenamiento", "title": "Configuración y almacenamiento", "level": "Intermedio", "minutes": 16, "file": "05-config-almacenamiento.md" },
+    { "id": "06-scheduling-escalado", "title": "Scheduling, recursos, probes y escalado", "level": "Intermedio", "minutes": 17, "file": "06-scheduling-escalado.md" },
+    { "id": "07-seguridad", "title": "Seguridad: RBAC, NetworkPolicy y Pod Security", "level": "Avanzado", "minutes": 17, "file": "07-seguridad.md" },
+    { "id": "08-operacion", "title": "Operación: Helm, kubeadm, etcd y troubleshooting", "level": "Avanzado", "minutes": 20, "file": "08-operacion.md" }
+  ]
+}

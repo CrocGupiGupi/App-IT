@@ -1,0 +1,43 @@
+{
+  "01-contenedores": [
+    { "q": "¿Qué mecanismo del kernel limita los **recursos** (CPU, memoria) que consume un contenedor?", "options": ["Namespaces", "cgroups", "OverlayFS", "seccomp"], "answer": 1, "explain": "Los cgroups limitan el consumo; los namespaces limitan lo que el proceso ve." },
+    { "q": "¿Qué diferencia principal hay entre una VM y un contenedor?", "options": ["La VM comparte el kernel del host", "El contenedor comparte el kernel del host", "El contenedor tiene su propio hipervisor", "No hay diferencia de aislamiento"], "answer": 1, "explain": "Los contenedores comparten el kernel; la VM ejecuta uno propio sobre un hipervisor." },
+    { "q": "¿Qué componente crea realmente el contenedor siguiendo la especificación OCI?", "options": ["docker CLI", "dockerd", "runc", "Docker Hub"], "answer": 2, "explain": "runc es el runtime de bajo nivel; containerd lo gestiona y dockerd lo orquesta." },
+    { "q": "Una imagen es...", "options": ["Un proceso en ejecución", "Una plantilla inmutable formada por capas", "Un volumen", "Una red virtual"], "answer": 1, "explain": "El contenedor es la instancia de la imagen." }
+  ],
+  "02-comandos": [
+    { "q": "¿Qué código de salida suele indicar que el contenedor fue terminado por el OOM killer o SIGKILL?", "options": ["0", "1", "137", "143"], "answer": 2, "explain": "137 = 128 + 9 (SIGKILL). 143 es SIGTERM." },
+    { "q": "¿Qué hace `docker stop`?", "options": ["Envía SIGKILL inmediato", "Envía SIGTERM y, pasado el plazo, SIGKILL", "Pausa el contenedor sin señal", "Borra el contenedor"], "answer": 1, "explain": "El plazo por defecto es de 10 segundos." },
+    { "q": "¿Qué opción de `docker run` elimina el contenedor al terminar?", "options": ["--rm", "-d", "--restart no", "--clean"], "answer": 0, "explain": "--rm borra el contenedor cuando su proceso principal termina." },
+    { "q": "¿Qué comando abre una shell dentro de un contenedor en ejecución?", "options": ["docker attach -sh web", "docker exec -it web sh", "docker run -it web sh", "docker logs web"], "answer": 1, "explain": "`exec` ejecuta un comando adicional en un contenedor ya en marcha." }
+  ],
+  "03-dockerfile": [
+    { "q": "¿Qué ordenación de instrucciones aprovecha mejor la caché al construir una app Node?", "options": ["COPY . . y luego npm install", "COPY package*.json, npm install y luego COPY . .", "npm install antes de FROM", "Da igual"], "answer": 1, "explain": "Las dependencias cambian menos que el código; se instalan antes para reutilizar la capa." },
+    { "q": "¿Para qué sirve un build multi-stage?", "options": ["Ejecutar varios contenedores", "Dejar en la imagen final solo lo necesario, descartando herramientas de compilación", "Construir en paralelo en varios hosts", "Cifrar la imagen"], "answer": 1, "explain": "Se copian artefactos de una etapa a otra con `COPY --from`." },
+    { "q": "¿Qué afirmación sobre `EXPOSE` es correcta?", "options": ["Publica el puerto en el host", "Solo documenta el puerto", "Abre el firewall", "Es obligatorio para -p"], "answer": 1, "explain": "Para publicar se usa `-p` o `-P`." },
+    { "q": "¿Qué forma de CMD/ENTRYPOINT recibe correctamente las señales como PID 1?", "options": ["Forma shell", "Forma exec (array JSON)", "Ambas por igual", "Ninguna"], "answer": 1, "explain": "La forma shell lanza `/bin/sh -c`, que puede no reenviar las señales." }
+  ],
+  "04-redes-volumenes": [
+    { "q": "En una red bridge **definida por el usuario**, los contenedores se resuelven entre sí...", "options": ["Solo por IP", "Por nombre mediante DNS interno", "No se pueden comunicar", "Solo con --link"], "answer": 1, "explain": "La red bridge por defecto no ofrece resolución por nombre." },
+    { "q": "¿Qué tipo de almacenamiento recomienda Docker para datos persistentes de producción?", "options": ["Capa de escritura del contenedor", "Volúmenes gestionados por Docker", "tmpfs", "Variables de entorno"], "answer": 1, "explain": "Los volúmenes sobreviven al contenedor y los gestiona Docker." },
+    { "q": "¿Qué driver de red conecta contenedores que corren en distintos hosts de un Swarm?", "options": ["bridge", "host", "overlay", "none"], "answer": 2, "explain": "Overlay crea una red distribuida entre nodos." },
+    { "q": "Sobre un bind mount a una ruta con contenido ya existente en la imagen:", "options": ["Se fusionan ambos", "Oculta el contenido de la imagen en esa ruta", "Se copia el contenido al host", "Falla siempre"], "answer": 1, "explain": "El montaje tapa lo que hubiera en esa ruta." }
+  ],
+  "05-compose": [
+    { "q": "¿Cómo se asegura que `web` espere a que `db` esté realmente lista?", "options": ["depends_on simple", "depends_on con condition: service_healthy y un healthcheck", "sleep 10 en el Dockerfile", "restart: always"], "answer": 1, "explain": "depends_on solo ordena el arranque salvo que se use la condición de salud." },
+    { "q": "¿Qué hace `docker compose down -v`?", "options": ["Solo para los contenedores", "Elimina contenedores, redes y volúmenes del proyecto", "Valida el fichero", "Actualiza imágenes"], "answer": 1, "explain": "Sin -v los volúmenes con nombre se conservan." },
+    { "q": "Dentro de la red de Compose, el servicio `db` es accesible desde `web` como...", "options": ["localhost", "db", "La IP del host", "compose-db"], "answer": 1, "explain": "El nombre del servicio funciona como nombre DNS." }
+  ],
+  "06-seguridad-registries": [
+    { "q": "¿Cuáles son buenas prácticas de seguridad? (elige dos)", "options": ["Ejecutar como root para evitar problemas de permisos", "Usar `USER` no privilegiado", "Quitar capabilities innecesarias con --cap-drop", "Montar docker.sock en todos los contenedores"], "answer": [1, 2], "explain": "Mínimo privilegio. Montar docker.sock equivale a dar root del host." },
+    { "q": "¿Por qué es mala idea poner una contraseña con `ENV` en el Dockerfile?", "options": ["No funciona", "Queda grabada en las capas y se ve con docker history/inspect", "Se borra al arrancar", "Ralentiza el build"], "answer": 1, "explain": "Usa secretos en tiempo de ejecución o `--mount=type=secret` en build." },
+    { "q": "¿Qué identifica una imagen de forma inmutable?", "options": ["La etiqueta latest", "El digest sha256", "El nombre del repositorio", "El ID del contenedor"], "answer": 1, "explain": "Las etiquetas pueden moverse; el digest no." },
+    { "q": "¿Qué hace `--read-only`?", "options": ["Hace los volúmenes de solo lectura", "Monta el sistema de ficheros raíz del contenedor en solo lectura", "Impide el acceso a red", "Bloquea el log"], "answer": 1, "explain": "Se combina con `--tmpfs /tmp` para rutas que requieren escritura." }
+  ],
+  "07-swarm-troubleshooting": [
+    { "q": "Con 5 managers en un Swarm, ¿cuántos fallos tolera el quórum Raft?", "options": ["1", "2", "3", "4"], "answer": 1, "explain": "Hace falta mayoría: 3 de 5, así que toleran 2 fallos." },
+    { "q": "¿Qué modo de servicio ejecuta exactamente una tarea en cada nodo?", "options": ["replicated", "global", "rolling", "drain"], "answer": 1, "explain": "El modo global es habitual para agentes de monitorización." },
+    { "q": "Un contenedor no es accesible aunque `docker ps` muestra que corre. La aplicación escucha en 127.0.0.1 dentro del contenedor. ¿Qué ocurre?", "options": ["Funciona con -p", "No será accesible desde fuera: debe escuchar en 0.0.0.0", "Hay que usar --privileged", "Es un problema de DNS"], "answer": 1, "explain": "La publicación de puertos llega a la interfaz del contenedor, no a su loopback." },
+    { "q": "¿Qué limita el crecimiento de los logs del driver json-file?", "options": ["Nada, es automático", "log-opts max-size y max-file", "docker prune", "El volumen"], "answer": 1, "explain": "Sin rotación, los logs pueden llenar el disco." }
+  ]
+}

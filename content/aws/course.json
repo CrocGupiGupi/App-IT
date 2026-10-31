@@ -1,0 +1,18 @@
+{
+  "id": "aws",
+  "title": "Amazon Web Services",
+  "icon": "🟧",
+  "description": "Servicios clave de AWS: IAM, cómputo, almacenamiento, redes, datos, serverless y operaciones.",
+  "certs": ["CLF-C02 (Cloud Practitioner)", "SAA-C03 (Solutions Architect Associate)", "DVA-C02 (Developer Associate)", "SysOps Administrator Associate", "DevOps Engineer Professional", "Security Specialty"],
+  "note": "AWS renueva versiones y códigos de examen con regularidad. **Consulta la guía oficial de cada examen en aws.amazon.com/certification** y practica con la capa gratuita o créditos (vigila siempre los costes).",
+  "lessons": [
+    { "id": "01-fundamentos", "title": "Fundamentos, infraestructura global y cuentas", "level": "Fundamentos", "minutes": 14, "file": "01-fundamentos.md" },
+    { "id": "02-iam", "title": "IAM: identidades y permisos", "level": "Fundamentos", "minutes": 16, "file": "02-iam.md" },
+    { "id": "03-computo", "title": "Cómputo: EC2, balanceo, Lambda y contenedores", "level": "Intermedio", "minutes": 18, "file": "03-computo.md" },
+    { "id": "04-almacenamiento", "title": "Almacenamiento: S3, EBS y EFS", "level": "Intermedio", "minutes": 16, "file": "04-almacenamiento.md" },
+    { "id": "05-redes", "title": "Redes: VPC, Route 53 y CloudFront", "level": "Intermedio", "minutes": 18, "file": "05-redes.md" },
+    { "id": "06-bases-de-datos", "title": "Bases de datos", "level": "Intermedio", "minutes": 15, "file": "06-bases-de-datos.md" },
+    { "id": "07-integracion-serverless", "title": "Integración y arquitecturas serverless", "level": "Avanzado", "minutes": 15, "file": "07-integracion-serverless.md" },
+    { "id": "08-seguridad-operaciones", "title": "Seguridad, observabilidad, IaC y arquitectura", "level": "Avanzado", "minutes": 20, "file": "08-seguridad-operaciones.md" }
+  ]
+}

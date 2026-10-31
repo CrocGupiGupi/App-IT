@@ -1,0 +1,52 @@
+{
+  "01-arquitectura": [
+    { "q": "¿Qué componente es el único que lee y escribe directamente en etcd?", "options": ["kube-scheduler", "kubelet", "kube-apiserver", "kube-proxy"], "answer": 2, "explain": "Todos los demás componentes pasan por el API server." },
+    { "q": "¿Qué componente decide en qué nodo se ejecuta un Pod nuevo?", "options": ["kubelet", "kube-scheduler", "controller-manager", "etcd"], "answer": 1, "explain": "El scheduler asigna el nodo; el kubelet lo ejecuta." },
+    { "q": "Un Pod es...", "options": ["Un nodo del clúster", "La unidad mínima desplegable, con uno o más contenedores que comparten red", "Un tipo de Service", "Un volumen"], "answer": 1, "explain": "Los contenedores de un Pod comparten IP y volúmenes." },
+    { "q": "Kubernetes funciona de forma...", "options": ["Imperativa pura", "Declarativa, reconciliando estado real con deseado", "Manual", "Solo por scripts"], "answer": 1, "explain": "Los controladores reconcilian continuamente." }
+  ],
+  "02-kubectl-yaml": [
+    { "q": "¿Qué opción genera el YAML de un objeto sin crearlo?", "options": ["--dry-run=client -o yaml", "--explain", "--preview", "-o describe"], "answer": 0, "explain": "Es la técnica clave en los exámenes prácticos." },
+    { "q": "¿Dónde se ven primero los motivos de que un Pod no arranque?", "options": ["kubectl get nodes", "Los Events de `kubectl describe pod`", "etcd", "kubectl top"], "answer": 1, "explain": "Los eventos muestran errores de scheduling, imagen y montajes." },
+    { "q": "¿Qué diferencia hay entre `apply` y `create`?", "options": ["Ninguna", "apply es declarativo y puede actualizar; create solo crea y falla si existe", "create es declarativo", "apply solo funciona con Pods"], "answer": 1, "explain": "`apply` guarda la configuración aplicada y permite reaplicar." }
+  ],
+  "03-workloads": [
+    { "q": "¿Qué recurso eliges para una base de datos que necesita identidad estable y disco propio por réplica?", "options": ["Deployment", "DaemonSet", "StatefulSet", "Job"], "answer": 2, "explain": "StatefulSet da nombres estables y volumeClaimTemplates." },
+    { "q": "¿Qué recurso ejecuta un Pod en cada nodo?", "options": ["ReplicaSet", "DaemonSet", "CronJob", "StatefulSet"], "answer": 1, "explain": "Típico para agentes de logs y monitorización." },
+    { "q": "Con `maxUnavailable: 0` y `maxSurge: 1` en un RollingUpdate:", "options": ["Se eliminan todos los Pods antes de crear nuevos", "Se crea un Pod extra y nunca baja la capacidad", "El despliegue no avanza", "Se usa la estrategia Recreate"], "answer": 1, "explain": "Garantiza que siempre estén disponibles todas las réplicas deseadas." },
+    { "q": "¿Qué comando revierte el último despliegue?", "options": ["kubectl rollout undo deployment/web", "kubectl rollback web", "kubectl delete rs", "kubectl apply --undo"], "answer": 0, "explain": "Se puede usar `--to-revision` para una revisión concreta." }
+  ],
+  "04-servicios-red": [
+    { "q": "¿Qué tipo de Service abre un puerto en todos los nodos (rango 30000–32767)?", "options": ["ClusterIP", "NodePort", "ExternalName", "Headless"], "answer": 1, "explain": "NodePort expone el servicio en la IP de cada nodo." },
+    { "q": "Un Ingress no enruta tráfico. ¿Qué falta casi seguro?", "options": ["Un Ingress Controller", "Un ConfigMap", "Un PV", "Un DaemonSet de red"], "answer": 0, "explain": "El Ingress es solo la configuración; lo implementa un controller." },
+    { "q": "Un Service no tiene endpoints. ¿Causa más probable?", "options": ["Falta metrics-server", "El selector no coincide con las etiquetas de los Pods o no están Ready", "El namespace es kube-system", "Falta un PVC"], "answer": 1, "explain": "Comprueba `kubectl get endpoints` y las etiquetas." },
+    { "q": "El nombre DNS completo de un Service `web` en el namespace `dev` es:", "options": ["web.dev.svc.cluster.local", "dev.web.cluster", "web.svc.dev", "web.dev.pod"], "answer": 0, "explain": "Formato `<servicio>.<ns>.svc.cluster.local`." }
+  ],
+  "05-config-almacenamiento": [
+    { "q": "Los Secrets de Kubernetes por defecto están...", "options": ["Cifrados en etcd", "Codificados en base64, no cifrados", "Almacenados fuera del clúster", "Protegidos con contraseña"], "answer": 1, "explain": "Hay que activar el cifrado en reposo y limitar el acceso con RBAC." },
+    { "q": "¿Qué objeto permite el aprovisionamiento dinámico de volúmenes?", "options": ["PersistentVolume", "StorageClass", "ConfigMap", "emptyDir"], "answer": 1, "explain": "La StorageClass define el provisioner (CSI)." },
+    { "q": "Un PV con reclaimPolicy `Retain` tras borrar su PVC:", "options": ["Se elimina junto con los datos", "Se conserva con los datos y requiere recuperación manual", "Se recicla automáticamente", "Pasa a ser emptyDir"], "answer": 1, "explain": "`Delete` elimina el almacenamiento subyacente." },
+    { "q": "Si cambia un ConfigMap montado como volumen (sin subPath):", "options": ["Los ficheros se actualizan con retraso", "Nunca se actualizan", "El Pod se reinicia siempre", "Se borran"], "answer": 0, "explain": "Con variables de entorno no se actualiza hasta reiniciar el Pod." }
+  ],
+  "06-scheduling-escalado": [
+    { "q": "Un contenedor supera su límite de **memoria**. ¿Qué ocurre?", "options": ["Se ralentiza", "Es terminado con OOMKilled", "Se migra de nodo", "Nada"], "answer": 1, "explain": "El límite de CPU hace throttling; el de memoria mata el contenedor." },
+    { "q": "¿Qué probe, al fallar, saca el Pod de los endpoints del Service sin reiniciarlo?", "options": ["liveness", "readiness", "startup", "exec"], "answer": 1, "explain": "Liveness reinicia; readiness retira del tráfico." },
+    { "q": "¿Qué hace un taint `NoSchedule`?", "options": ["Atrae Pods al nodo", "Impide programar Pods sin la toleration correspondiente", "Expulsa todos los Pods", "Reserva CPU"], "answer": 1, "explain": "`NoExecute` además desaloja los Pods existentes." },
+    { "q": "¿Qué QoS tiene un Pod con requests = limits en todos sus contenedores?", "options": ["BestEffort", "Burstable", "Guaranteed", "Critical"], "answer": 2, "explain": "Es el último en ser desalojado." },
+    { "q": "El HPA necesita... (elige dos)", "options": ["metrics-server", "requests de recursos definidos", "Un StatefulSet", "Un Ingress"], "answer": [0, 1], "explain": "Calcula el porcentaje respecto a los requests." }
+  ],
+  "07-seguridad": [
+    { "q": "¿Qué combinación da permisos de un Role a un usuario en un solo namespace?", "options": ["ClusterRoleBinding + ClusterRole", "RoleBinding + Role", "Role + ServiceAccount", "NetworkPolicy + Role"], "answer": 1, "explain": "El RoleBinding limita el alcance al namespace." },
+    { "q": "¿Qué comando comprueba si un usuario puede borrar pods en `dev`?", "options": ["kubectl get rbac", "kubectl auth can-i delete pods -n dev --as ana", "kubectl describe user ana", "kubectl check pods"], "answer": 1, "explain": "`--as` permite suplantar para comprobar." },
+    { "q": "Las NetworkPolicy solo funcionan si...", "options": ["Hay un Ingress", "El plugin CNI las implementa", "Se usa un LoadBalancer", "Hay RBAC"], "answer": 1, "explain": "Calico y Cilium las soportan; Flannel no." },
+    { "q": "¿Qué perfil de Pod Security es el más restrictivo?", "options": ["privileged", "baseline", "restricted", "default"], "answer": 2, "explain": "PodSecurityPolicy fue eliminado en 1.25 y sustituido por Pod Security Admission." },
+    { "q": "RBAC en Kubernetes...", "options": ["Permite reglas de denegación explícita", "Es solo aditivo: únicamente concede permisos", "No admite grupos", "Requiere un objeto User"], "answer": 1, "explain": "No existe regla *deny*; la ausencia de permiso es la denegación." }
+  ],
+  "08-operacion": [
+    { "q": "¿Cómo se actualiza un clúster kubeadm?", "options": ["Saltando varias versiones menores a la vez", "Subiendo una versión menor cada vez, empezando por el control plane", "Primero los workers", "Reinstalando"], "answer": 1, "explain": "Después, cada worker con drain → upgrade → uncordon." },
+    { "q": "Un Pod en `CrashLoopBackOff`. ¿Primer paso útil?", "options": ["kubectl delete node", "kubectl logs <pod> --previous", "kubectl rollout pause", "Reiniciar etcd"], "answer": 1, "explain": "Los logs del contenedor anterior muestran por qué falló." },
+    { "q": "¿Dónde viven los manifiestos de los static Pods del control plane en kubeadm?", "options": ["/etc/kubernetes/manifests", "/var/lib/etcd", "/usr/bin/kube", "/opt/k8s"], "answer": 0, "explain": "El kubelet los vigila y los mantiene en ejecución." },
+    { "q": "¿Qué comando de Helm revierte una release a la revisión 1?", "options": ["helm undo web 1", "helm rollback web 1", "helm revert web", "helm uninstall web --rev 1"], "answer": 1, "explain": "`helm history` lista las revisiones." },
+    { "q": "Un Pod está en `Pending` y `describe` indica que ningún nodo cumple los taints. ¿Solución?", "options": ["Añadir una toleration o quitar el taint", "Aumentar los limits", "Cambiar a NodePort", "Borrar el Service"], "answer": 0, "explain": "El scheduler filtra los nodos con taints no tolerados." }
+  ]
+}

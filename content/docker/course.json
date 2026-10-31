@@ -1,0 +1,17 @@
+{
+  "id": "docker",
+  "title": "Docker",
+  "icon": "🐳",
+  "description": "De qué es un contenedor a construir, asegurar y orquestar imágenes con Docker.",
+  "certs": ["Docker Certified Associate (DCA)", "Base para KCNA / CKAD / CKA", "Base para AZ-204 y AWS DVA-C02 (contenedores)"],
+  "note": "Las certificaciones cambian de proveedor, código y temario con el tiempo: **comprueba siempre la guía oficial del examen** antes de planificar.",
+  "lessons": [
+    { "id": "01-contenedores", "title": "Qué son los contenedores y Docker", "level": "Fundamentos", "minutes": 12, "file": "01-contenedores.md" },
+    { "id": "02-comandos", "title": "Comandos esenciales y ciclo de vida", "level": "Fundamentos", "minutes": 15, "file": "02-comandos.md" },
+    { "id": "03-dockerfile", "title": "Imágenes y Dockerfile", "level": "Intermedio", "minutes": 18, "file": "03-dockerfile.md" },
+    { "id": "04-redes-volumenes", "title": "Redes y almacenamiento", "level": "Intermedio", "minutes": 15, "file": "04-redes-volumenes.md" },
+    { "id": "05-compose", "title": "Docker Compose", "level": "Intermedio", "minutes": 14, "file": "05-compose.md" },
+    { "id": "06-seguridad-registries", "title": "Seguridad y registries", "level": "Avanzado", "minutes": 16, "file": "06-seguridad-registries.md" },
+    { "id": "07-swarm-troubleshooting", "title": "Swarm y resolución de problemas", "level": "Avanzado", "minutes": 16, "file": "07-swarm-troubleshooting.md" }
+  ]
+}
