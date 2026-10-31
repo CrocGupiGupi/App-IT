@@ -34,9 +34,17 @@ Títulos `#`–`####`, párrafos, **negrita**, *cursiva*, `código`, enlaces, li
 
 ## Funciones de estudio
 
-- Test al final de cada lección, **repaso aleatorio** (10 preguntas) y **simulacro cronometrado** (hasta 20 preguntas, 90 s por pregunta) que al terminar indica qué lecciones repasar.
+- Test de una pregunta por pantalla al final de cada lección, con la respuesta al momento.
+- **Repaso aleatorio** (10 preguntas) y **simulacro cronometrado** (hasta 20 preguntas, 90 s por pregunta), que corrige al terminar e indica qué lecciones repasar.
 - **Buscador** en el menú lateral sobre el texto de todas las lecciones.
+- Inicio con la siguiente lección, lecciones completadas, días seguidos, acierto en los tests y lecciones que conviene repasar.
+
+## Diseño
+
+Cada campo es una línea de metro y cada lección, una parada. Las líneas toman su color de `--l0` a `--l5` en `styles.css`, según su orden en `content/fields.json`, y su distintivo son las dos primeras letras del `id`. El tema puede ser automático, claro u oscuro, y se elige en el menú lateral.
+
+La tipografía es [Overpass](https://github.com/RedHatOfficial/Overpass), incluida en `fonts/` bajo licencia SIL OFL 1.1 (`fonts/OFL.txt`).
 
 ## Datos del usuario
 
-El progreso (lecciones completadas y notas de los tests) se guarda en `localStorage` del navegador: es local a cada dispositivo. Para pasarlo de un dispositivo a otro, usa **Exportar / Importar progreso** en la página de inicio.
+El progreso (lecciones completadas, notas de los tests y días de estudio) se guarda en `localStorage` del navegador: es local a cada dispositivo. Para pasarlo de un dispositivo a otro, usa **Copia de tu progreso** en la página de inicio.

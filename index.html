@@ -4,16 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Estudio IT</title>
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#f8fbfb">
 <meta name="description" content="Temario y tests para certificaciones de Docker, Kubernetes, Azure y AWS.">
+<script>try { var t = JSON.parse(localStorage.getItem('theme')); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/overpass-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip" href="#main" id="skip">Saltar al contenido</a>
 <header class="top">
-  <button id="menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">☰</button>
-  <a href="#/" class="brand">Estudio IT</a>
+  <button id="menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>
+  <a href="#/" class="brand"><img src="icon.svg" alt="" width="26" height="26">Estudio IT</a>
 </header>
 <div class="shell">
   <nav id="nav" aria-label="Contenidos"></nav>
