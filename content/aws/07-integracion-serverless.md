@@ -14,7 +14,7 @@ Cola gestionada de mensajes; modelo **pull**.
 | Entrega | **Al menos una vez** (posibles duplicados) | **Exactamente una vez** (deduplicación) |
 | Rendimiento | Prácticamente ilimitado | Limitado (miles/s con alto rendimiento) |
 
-- **Visibility timeout** (el mensaje se oculta mientras se procesa; si no se elimina, reaparece), **long polling** (reduce vacíos y coste), retención hasta 14 días, tamaño máximo 256 KB.
+- **Visibility timeout** (el mensaje se oculta mientras se procesa, 30 s por defecto y 12 horas como máximo; si no se elimina, reaparece), **long polling** (reduce vacíos y coste), retención de 4 días por defecto y 14 como máximo, tamaño máximo **1 MiB**.
 - **Dead-letter queue (DLQ)** para mensajes que fallan repetidamente.
 - Patrón clásico: ASG que escala según la longitud de la cola.
 

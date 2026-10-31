@@ -30,7 +30,7 @@ Base de datos **NoSQL multimodelo**, distribuida globalmente, con latencias de m
 
 ## Otros servicios de datos
 
-- **Azure Cache for Redis**: caché en memoria.
+- **Azure Managed Redis**: caché en memoria. Sustituye a **Azure Cache for Redis**, que tiene anunciada la retirada de todos sus niveles.
 - **Azure Synapse Analytics / Microsoft Fabric**: analítica y almacén de datos.
 - **Azure Data Lake Storage Gen2**: lago de datos (Blob con espacio de nombres jerárquico).
 - **Azure Data Factory**: orquestación de ETL/ELT.
@@ -43,7 +43,7 @@ Base de datos **NoSQL multimodelo**, distribuida globalmente, con latencias de m
 | Esquema relacional, transacciones | Azure SQL / PostgreSQL |
 | Migrar SQL Server local con mínimos cambios | SQL Managed Instance |
 | Datos JSON, escala global, baja latencia | Cosmos DB |
-| Caché para acelerar | Redis |
+| Caché para acelerar | Azure Managed Redis |
 | Archivos y objetos | Blob / Files |
 
 ## Mensajería y eventos

@@ -10,7 +10,7 @@
 
 ## Amazon S3
 
-Almacén de objetos prácticamente ilimitado. Estructura: **buckets** (nombre único global, regional) con **objetos** (clave + datos + metadatos, hasta 5 TB; subida única hasta 5 GB, *multipart* recomendado >100 MB). Durabilidad de **11 nueves (99,999999999 %)**.
+Almacén de objetos prácticamente ilimitado. Estructura: **buckets** (nombre único global, regional) con **objetos** (clave + datos + metadatos, hasta 48,8 TiB; *multipart* recomendado desde 100 MB, con hasta 10 000 partes de 5 MiB a 5 GiB). Durabilidad de **11 nueves (99,999999999 %)**.
 
 ### Clases de almacenamiento
 
@@ -30,7 +30,7 @@ Almacén de objetos prácticamente ilimitado. Estructura: **buckets** (nombre ú
 
 - **Versionado** (protege frente a borrados y sobrescrituras; con **MFA Delete**), **Object Lock** (WORM), **replicación** entre buckets (CRR otra región / SRR misma región; requiere versionado).
 - **Cifrado** (siempre activo en reposo): **SSE-S3**, **SSE-KMS** (auditable con CloudTrail), SSE-C (claves del cliente) y cifrado en el cliente.
-- **Alojamiento web estático**, **eventos** (S3 → Lambda/SQS/SNS/EventBridge), **S3 Select**, **Transfer Acceleration**, **Multi-Region Access Points**.
+- **Alojamiento web estático**, **eventos** (S3 → Lambda/SQS/SNS/EventBridge), **Transfer Acceleration**, **Multi-Region Access Points**. **S3 Select** ya no está disponible para clientes nuevos; usa Athena para consultar datos en S3.
 - Consistencia: **fuerte** de lectura tras escritura.
 
 ### Control de acceso
@@ -73,7 +73,7 @@ NFS gestionado, **multi-AZ**, elástico, accesible por miles de instancias Linux
 
 - **Storage Gateway**: puente híbrido (File, Volume, Tape Gateway).
 - **AWS Backup**: copias centralizadas de EBS, RDS, EFS, DynamoDB…
-- **DataSync**, **Transfer Family** (SFTP), **Snow Family** (Snowcone/Snowball para grandes volúmenes sin red).
+- **DataSync** (transferencias en línea), **Transfer Family** (SFTP) y **Data Transfer Terminal** (transferencia física). **Snowball Edge** ya no está disponible para clientes nuevos.
 
 ## Elegir
 

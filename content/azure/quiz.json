@@ -13,7 +13,7 @@
     { "q": "¿Qué ofrece PIM?", "options": ["Cifrado de discos", "Acceso privilegiado just-in-time a roles", "Balanceo de carga", "Copias de seguridad"], "answer": 1, "explain": "Requiere Entra ID P2." }
   ],
   "03-computo": [
-    { "q": "Necesitas ejecutar código por eventos, con escala a cero y pago por ejecución:", "options": ["Virtual Machines", "Azure Functions (Consumption)", "AKS", "App Service Basic"], "answer": 1, "explain": "Es el modelo serverless." },
+    { "q": "Necesitas ejecutar código por eventos, con escala a cero y pago por ejecución:", "options": ["Virtual Machines", "Azure Functions (Flex Consumption)", "AKS", "App Service Basic"], "answer": 1, "explain": "Es el modelo serverless. Flex Consumption es el plan recomendado; Consumption es heredado." },
     { "q": "Una VM está **desasignada**. ¿Qué sigue cobrándose?", "options": ["El cómputo", "Los discos y recursos asociados, no el cómputo", "Nada", "Solo la IP"], "answer": 1, "explain": "Parar la VM solo desde el SO no libera el cómputo." },
     { "q": "Quieres microservicios en contenedores con escala a cero sin gestionar Kubernetes:", "options": ["AKS", "Azure Container Apps", "VMSS", "Azure Batch"], "answer": 1, "explain": "Container Apps oculta el clúster." },
     { "q": "¿Qué permite desplegar una versión nueva y cambiar sin tiempo de inactividad en App Service?", "options": ["Deployment slots con swap", "Availability set", "Reservas", "ExpressRoute"], "answer": 0, "explain": "Los slots requieren planes Standard o superior." }

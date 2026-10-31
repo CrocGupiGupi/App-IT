@@ -22,13 +22,13 @@ az storage blob upload --account-name stdemo12345 -c fotos -f foto.jpg -n foto.j
 
 | Opción | Copias | Protege de |
 |---|---|---|
-| **LRS** (local) | 3 en un centro de datos | Fallos de disco/rack |
-| **ZRS** (zona) | 3 en 3 zonas de una región | Fallo de un centro de datos |
+| **LRS** (local) | 3 en un centro de datos | Fallos de disco, servidor o rack |
+| **ZRS** (zona) | En 3 o más zonas de una región | Fallo de un centro de datos |
 | **GRS** (geo) | LRS + 3 copias en la región pareja | Desastre regional |
 | **GZRS** (geo-zona) | ZRS + LRS en la región pareja | Fallo de zona y de región |
 | **RA-GRS / RA-GZRS** | Las geo-redundantes con **lectura** en la secundaria | Igual + lectura durante la caída |
 
-La replicación a la región secundaria es **asíncrona**.
+La replicación a la región secundaria es **asíncrona**, y para GZRS la región debe tener zonas y par. Sin RA-, la secundaria solo se puede leer tras una conmutación por error. La redundancia no protege de borrados: se replican a todas las copias.
 
 ## Niveles de acceso (blobs)
 
@@ -37,9 +37,13 @@ La replicación a la región secundaria es **asíncrona**.
 | **Hot** | Datos frecuentes | Más caro | Más barato |
 | **Cool** | Poco frecuentes (≥30 días) | Intermedio | Más caro |
 | **Cold** | Muy poco frecuentes (≥90 días) | Más barato | Más caro |
-| **Archive** | Retención larga (≥180 días), **offline** | El más barato | Hay que **rehidratar** (horas) |
+| **Archive** | Retención larga (≥180 días), **offline** | El más barato | Hay que **rehidratar** (hasta 15 horas) |
 
-**Lifecycle management** mueve o elimina blobs automáticamente según reglas (p. ej. pasar a Cool a los 30 días, a Archive a los 180, borrar a los 7 años).
+- Borrar o mover un blob antes del mínimo de días tiene **penalización por eliminación temprana**.
+- Archive solo funciona con LRS, GRS y RA-GRS, **no con ZRS, GZRS ni RA-GZRS**, y solo se aplica a blobs en bloques.
+- **Smart tier** mueve los datos automáticamente entre Hot, Cool y Cold según su uso.
+
+**Lifecycle management** mueve o elimina blobs automáticamente según reglas (p. ej. pasar a Cool a los 30 días, a Archive a los 180, borrar a los 7 años). No sirve para rehidratar desde Archive.
 
 ## Seguridad del acceso
 
@@ -67,4 +71,4 @@ Recursos compartidos de archivos (SMB 3.x, NFS 4.1) montables desde Windows, Lin
 
 ## Discos gestionados
 
-Standard HDD < Standard SSD < Premium SSD < Premium SSD v2 < Ultra Disk (rendimiento creciente). Cifrados por defecto (SSE); *Azure Disk Encryption* añade cifrado dentro del SO.
+Standard HDD < Standard SSD < Premium SSD < Premium SSD v2 < Ultra Disk (rendimiento creciente). Cifrados por defecto (SSE); *encryption at host* extiende el cifrado a discos temporales y cachés.

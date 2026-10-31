@@ -20,10 +20,11 @@ Plataforma de servicios cloud de Amazon con modelo de **pago por uso**. Seis ven
 ## Modelos de precios
 
 - **Pago por uso**, **ahorro por compromiso** (Savings Plans, Reserved) y **descuento por volumen** (por niveles).
-- **Capa gratuita**: pruebas de 12 meses, siempre gratis y pruebas cortas.
+- **Capa gratuita**: las cuentas nuevas reciben 100 USD en créditos y pueden ganar hasta 100 más. Con el **plan gratuito**, la cuenta se cierra a los 6 meses o al agotar los créditos, y solo da acceso a un grupo limitado de servicios. El **plan de pago** da acceso a todo. Más de 30 servicios son siempre gratuitos dentro de ciertos límites mensuales.
 - Herramientas: **Pricing Calculator**, **Cost Explorer**, **AWS Budgets** (alertas), **Cost and Usage Report**, etiquetas de asignación de costes.
 - Transferencia de datos: la **entrada** es gratuita; la salida a Internet se cobra, y entre regiones también. Entre AZ se cobra en algunos casos.
-- **Planes de soporte**: Basic (gratis), Developer, Business, Enterprise On-Ramp, Enterprise (TAM, tiempos de respuesta crecientes).
+- **IPv4 públicas**: cada una cuesta 0,005 USD por hora, esté en uso o no.
+- **Planes de soporte**: Basic (incluido), Business Support+ (producción), Enterprise Support (cargas críticas para el negocio) y Unified Operations (misión crítica).
 
 ## Cuentas y Organizations
 
@@ -48,4 +49,4 @@ aws ec2 describe-instances --query "Reservations[].Instances[].{id:InstanceId,es
 
 ## Marco de adopción
 
-**AWS Well-Architected Framework** (seis pilares: excelencia operativa, seguridad, fiabilidad, eficiencia del rendimiento, optimización de costes y sostenibilidad) y **Cloud Adoption Framework (CAF)**. Las **6 R** de la migración: Rehost, Replatform, Repurchase, Refactor, Retire, Retain.
+**AWS Well-Architected Framework** (seis pilares: excelencia operativa, seguridad, fiabilidad, eficiencia del rendimiento, optimización de costes y sostenibilidad) y **Cloud Adoption Framework (CAF)**. Las **7 R** de la migración: Retire, Retain, Rehost, Relocate, Repurchase, Replatform y Refactor.

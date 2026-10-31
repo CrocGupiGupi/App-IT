@@ -7,7 +7,7 @@
 3. **Fijar versiones** y reconstruir con frecuencia para recibir parches.
 4. **Nunca meter secretos en la imagen** (`ENV`, `COPY .env`): quedan en las capas y en `docker history`. Usa secretos en tiempo de ejecución o de build.
 5. **Escanear** imágenes: Docker Scout, Trivy, Grype, y escáneres de los registries (ACR/ECR).
-6. **Firmar y verificar** imágenes: Docker Content Trust (`DOCKER_CONTENT_TRUST=1`) o cosign/Sigstore.
+6. **Firmar y verificar** imágenes con **Sigstore (cosign)** o **Notation**. Docker Content Trust está en retirada: el servicio Notary v1 de `notary.docker.io` se apaga el 8 de diciembre de 2026, así que no lo uses en proyectos nuevos.
 
 ## Endurecer la ejecución
 
@@ -37,9 +37,9 @@ El demonio y los contenedores se ejecutan sin privilegios de root (con *user nam
 
 ## Registries
 
-- **Docker Hub**: registry público por defecto, con límites de descarga para usuarios anónimos o gratuitos.
+- **Docker Hub**: registry público por defecto. Límite cada 6 horas: 100 descargas si eres anónimo (por IP) y 200 con cuenta personal gratuita; en planes de pago no hay límite, sujeto a uso razonable.
 - **Privados/gestionados**: Azure Container Registry (ACR), Amazon ECR, Google Artifact Registry, GitHub Container Registry (GHCR), Harbor (autoalojado).
-- **Registry propio**: imagen `registry:2`.
+- **Registry propio**: imagen oficial `registry`.
 
 ```bash
 docker login registro.ejemplo.com

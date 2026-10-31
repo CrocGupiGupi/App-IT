@@ -6,7 +6,7 @@ Red virtual aislada **regional**, que abarca todas las AZ. Defines un bloque CID
 
 - AWS reserva **5 direcciones** por subred.
 - **Subred pública**: su tabla de rutas tiene una ruta `0.0.0.0/0` hacia un **Internet Gateway (IGW)**; las instancias necesitan IP pública/Elastic IP.
-- **Subred privada**: sin ruta directa a Internet. Para salida (actualizaciones) usa un **NAT Gateway** (en una subred pública, por AZ para alta disponibilidad).
+- **Subred privada**: sin ruta directa a Internet. Para salida (actualizaciones) usa un **NAT Gateway**. El **zonal** va en una subred pública y hay que crear uno por AZ; el **regional** no necesita subred pública y se extiende solo por las AZ con carga, pero no admite NAT privado.
 - **Tabla de rutas**: define a dónde va cada destino.
 - **Egress-only Internet Gateway** para IPv6 saliente.
 

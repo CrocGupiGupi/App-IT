@@ -92,6 +92,7 @@ Mecanismos: `httpGet`, `tcpSocket`, `exec`, `grpc`.
 
 - **HPA** (HorizontalPodAutoscaler): ajusta el nº de réplicas según CPU, memoria o métricas personalizadas. Requiere **metrics-server** y *requests* definidos.
 - **VPA**: ajusta requests/limits (complemento que se instala aparte).
+- **Redimensionado en caliente** (*in-place pod resize*, estable desde v1.35): cambia CPU y memoria de un Pod sin recrearlo, con `kubectl patch pod web --subresource=resize ...`.
 - **Cluster Autoscaler** / **Karpenter**: añaden o quitan nodos.
 
 ```bash

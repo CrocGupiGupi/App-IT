@@ -2,28 +2,31 @@
 
 ## Helm y Kustomize
 
-**Helm** es el gestor de paquetes de Kubernetes. Un **chart** es un paquete de plantillas; una **release** es una instalación concreta; los **values** parametrizan.
+**Helm** es el gestor de paquetes de Kubernetes (la versión mayor actual es Helm 4). Un **chart** es un paquete de plantillas; una **release** es una instalación concreta; los **values** parametrizan.
 
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm search repo nginx
-helm install web bitnami/nginx -n dev --create-namespace --set replicaCount=3
-helm install web bitnami/nginx -f valores.yaml
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm search repo prometheus
+helm install mon prometheus-community/prometheus -n obs --create-namespace
+helm install mon prometheus-community/prometheus -f valores.yaml
 helm list -A
-helm upgrade web bitnami/nginx --set replicaCount=5
-helm history web
-helm rollback web 1
-helm uninstall web
-helm template web ./micharto     # renderiza sin instalar
+helm upgrade mon prometheus-community/prometheus -f valores.yaml
+helm history mon
+helm rollback mon 1
+helm uninstall mon
 helm create micharto             # esqueleto de un chart
+helm template web ./micharto     # renderiza sin instalar
 ```
+
+> Revisa siempre quién mantiene un chart. El catálogo público gratuito de Bitnami se recortó en 2025 y las versiones antiguas pasaron a `bitnamilegacy`, sin actualizaciones.
 
 **Kustomize** (integrado: `kubectl apply -k`) personaliza YAML sin plantillas, con *bases* y *overlays* (`kustomization.yaml`, `patches`, `namePrefix`, `images`).
 
 ## Instalar un clúster con kubeadm
 
 ```bash
-# En todos los nodos: runtime (containerd), kubeadm, kubelet, kubectl; swap desactivado
+# En todos los nodos: runtime (containerd), kubeadm, kubelet y kubectl desde pkgs.k8s.io
+# El kubelet no arranca con swap activo salvo que lo toleres con failSwapOn: false
 # En el control plane:
 kubeadm init --pod-network-cidr=10.244.0.0/16
 mkdir -p ~/.kube && cp /etc/kubernetes/admin.conf ~/.kube/config
@@ -39,15 +42,16 @@ kubeadm token create --print-join-command
 
 ## Actualizar el clúster
 
-Solo se puede subir **una versión menor cada vez** (1.30 → 1.31). Orden:
+Solo se puede subir **una versión menor cada vez** (1.36 → 1.37). Haz antes una copia de seguridad. Orden:
 
-1. Control plane: `kubeadm upgrade plan` → `kubeadm upgrade apply v1.31.x`, luego actualizar `kubelet` y `kubectl` y reiniciar el kubelet.
-2. Cada worker: `kubectl drain nodo --ignore-daemonsets` → `kubeadm upgrade node` → actualizar kubelet → `kubectl uncordon nodo`.
+1. Primer control plane: actualiza el paquete `kubeadm` → `kubeadm upgrade plan` → `kubeadm upgrade apply v1.37.x` → `kubectl drain` → actualiza `kubelet` y `kubectl`, reinicia el kubelet → `kubectl uncordon`.
+2. Resto de control planes, uno a uno: igual, pero con `kubeadm upgrade node`.
+3. Cada worker: actualiza `kubeadm` → `kubeadm upgrade node` → `kubectl drain nodo --ignore-daemonsets` → actualiza kubelet y kubectl → `kubectl uncordon nodo`.
 
 ## Copia de seguridad de etcd
 
 ```bash
-ETCDCTL_API=3 etcdctl snapshot save /backup/etcd.db \
+etcdctl snapshot save /backup/etcd.db \
   --endpoints=https://127.0.0.1:2379 \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
   --cert=/etc/kubernetes/pki/etcd/server.crt \
@@ -56,6 +60,8 @@ ETCDCTL_API=3 etcdctl snapshot save /backup/etcd.db \
 etcdutl snapshot restore /backup/etcd.db --data-dir /var/lib/etcd-restaurado
 # después, apuntar el static Pod de etcd (hostPath) al nuevo data-dir
 ```
+
+`etcdctl` trabaja por red y `etcdutl` directamente sobre los ficheros. La API v3 ya es la predeterminada, así que `ETCDCTL_API=3` no hace falta.
 
 ## Método de troubleshooting
 

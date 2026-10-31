@@ -22,11 +22,11 @@ az keyvault secret set --vault-name kv-demo-12345 -n DbPassword --value 'S3creto
 
 - **CSPM**: evalúa la postura (recomendaciones, *Secure Score*, cumplimiento normativo).
 - **CWP**: protección de cargas (servidores, contenedores, Storage, SQL, Key Vault…) con alertas de amenazas. Funciona también en AWS, GCP y on-premises.
-- **Microsoft Sentinel**: SIEM + SOAR en la nube (recopilar, detectar, investigar y responder).
+- **Microsoft Sentinel**: SIEM + SOAR en la nube (recopilar, detectar, investigar y responder). Tras el 31/03/2027 solo estará disponible en el portal de Microsoft Defender, no en el de Azure.
 
 ## Cifrado
 
-- **En reposo**: Storage, SQL, discos (SSE con claves gestionadas por Microsoft o por el cliente); **Azure Disk Encryption**, **TDE** en SQL.
+- **En reposo**: Storage, SQL y discos (SSE siempre activo, con claves de Microsoft o del cliente); **TDE** en SQL. Para cifrar también discos temporales y cachés usa **encryption at host**. **Azure Disk Encryption** se retira el 15/09/2028: no lo uses en VMs nuevas.
 - **En tránsito**: TLS.
 - **En uso**: *confidential computing*.
 

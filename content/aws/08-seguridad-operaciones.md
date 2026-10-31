@@ -14,7 +14,7 @@
 | **GuardDuty** | Detección de amenazas inteligente (analiza CloudTrail, VPC Flow Logs, DNS) |
 | **Inspector** | Escaneo de vulnerabilidades (EC2, ECR, Lambda) |
 | **Macie** | Descubre datos sensibles (PII) en S3 |
-| **Security Hub** | Panel central de hallazgos y cumplimiento |
+| **Security Hub CSPM** | Panel central de hallazgos y comprobaciones de cumplimiento (CIS, PCI DSS, NIST). Requiere AWS Config para la mayoría de controles |
 | **Config** | Historial y cumplimiento de la configuración de recursos con reglas |
 | **Detective**, **Firewall Manager**, **Network Firewall**, **Artifact** (informes de cumplimiento) | |
 
@@ -78,6 +78,6 @@ De menor a mayor coste y menor RTO/RPO:
 
 1. **Cloud Practitioner (CLF-C02)**: visión general, costes y responsabilidad compartida.
 2. **Solutions Architect Associate (SAA-C03)**: diseño de arquitecturas resilientes, seguras, rápidas y económicas (el más versátil).
-3. **Developer Associate** o **SysOps/CloudOps Administrator**, y después **Professional** o **Specialty** (Security, DevOps…).
+3. **Developer Associate (DVA-C03)** o **CloudOps Engineer Associate (SOA-C03, antes SysOps)**, y después las **Professional** (Solutions Architect, DevOps Engineer) o **Security Specialty**. SOA-C03 incluye contenedores y más multicuenta, multirregión e IaC.
 
 Consejos: haz laboratorios reales con presupuesto y alertas de coste, repasa los *whitepapers* y las páginas de preguntas frecuentes (FAQ) de los servicios principales, y practica con simulacros cronometrados.

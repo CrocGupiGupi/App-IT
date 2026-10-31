@@ -17,7 +17,7 @@
 | Componente | Función |
 |---|---|
 | **kubelet** | Agente: se asegura de que los contenedores de los Pods asignados corran y estén sanos. Puerto 10250 |
-| **kube-proxy** | Implementa las reglas de red de los Services (iptables/IPVS) |
+| **kube-proxy** | Implementa las reglas de red de los Services. Modos en Linux: `iptables` (por defecto en 1.37), `nftables` (será el futuro valor por defecto) e `ipvs` |
 | **Container runtime** | containerd o CRI-O, mediante la interfaz **CRI** |
 
 Interfaces de extensión: **CRI** (runtime), **CNI** (red), **CSI** (almacenamiento).

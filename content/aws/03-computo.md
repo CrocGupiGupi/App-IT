@@ -48,7 +48,8 @@ Realizan comprobaciones de salud y reparten entre AZ (balanceo entre zonas).
 
 Código que se ejecuta por eventos; sin servidores que gestionar, pago por invocación y duración.
 
-- Límites típicos: **15 minutos** de ejecución máxima, memoria 128 MB–10 GB (la CPU escala con la memoria), 512 MB–10 GB de `/tmp`, concurrencia por cuenta y región.
+- Límites: **15 minutos** por invocación, memoria de 128 MB a 10 240 MB (la CPU escala con la memoria), `/tmp` de 512 MB a 10 240 MB, 1000 ejecuciones concurrentes por región por defecto (menos en cuentas nuevas). Carga útil: 6 MB síncrona y 1 MB asíncrona. Paquete: 50 MB comprimido y 250 MB descomprimido.
+- Para procesos largos con estado existen las **durable functions**.
 - Disparadores: API Gateway, S3, SQS, SNS, EventBridge, DynamoDB Streams, Kinesis…
 - **Arranque en frío**; mitígalo con **Provisioned Concurrency** o SnapStart.
 - Despliegue como ZIP o **imagen de contenedor** (hasta 10 GB). **Capas (layers)** para dependencias compartidas.
@@ -61,7 +62,7 @@ Código que se ejecuta por eventos; sin servidores que gestionar, pago por invoc
 | **ECS** | Orquestador propio de AWS (servicios, tareas) |
 | **EKS** | Kubernetes gestionado (AWS administra el plano de control) |
 | **Fargate** | Motor *serverless* para ECS/EKS: sin gestionar instancias |
-| **App Runner** | Despliega web apps/API desde imagen o código con mínima configuración |
+| **ECS Express Mode** | Despliegue simplificado de aplicaciones en contenedores. AWS lo recomienda en lugar de **App Runner**, que ya no admite clientes nuevos |
 
 ECS/EKS pueden ejecutarse sobre instancias EC2 (tú gestionas los nodos) o Fargate.
 
@@ -70,8 +71,8 @@ ECS/EKS pueden ejecutarse sobre instancias EC2 (tú gestionas los nodos) o Farga
 - **Elastic Beanstalk**: PaaS para web apps (subes el código; aprovisiona el resto).
 - **Lightsail**: VPS sencillos y previsibles.
 - **Batch**: trabajos por lotes a gran escala.
-- **Outposts**, **Snow Family**.
+- **Outposts**: infraestructura de AWS en tu centro de datos.
 
 ## Elegir servicio
 
-Control total del SO → EC2 · Código corto por eventos → Lambda · Contenedores sin gestionar nodos → Fargate · Kubernetes → EKS · Web app rápida → Beanstalk / App Runner.
+Control total del SO → EC2 · Código corto por eventos → Lambda · Contenedores sin gestionar nodos → Fargate · Kubernetes → EKS · Web app rápida → Beanstalk / ECS Express Mode.

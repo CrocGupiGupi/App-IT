@@ -10,15 +10,15 @@
 | Almacén de datos / analítica (OLAP) | **Redshift** |
 | Documentos compatibles con MongoDB | **DocumentDB** |
 | Grafos | **Neptune** |
-| Series temporales | **Timestream** |
+| Series temporales | **Timestream for InfluxDB** |
 | Migrar bases de datos | **DMS** (+ **SCT**) |
 
 ## Amazon RDS
 
 Servicio gestionado para MySQL, PostgreSQL, MariaDB, Oracle, SQL Server (y Db2). AWS gestiona copias, parches, instalación y alta disponibilidad; **no tienes acceso al SO**.
 
-- **Multi-AZ**: réplica **síncrona** en otra AZ para **alta disponibilidad** y conmutación automática (mismo endpoint DNS). La réplica en espera no se usa para lecturas (en la modalidad clásica).
-- **Réplicas de lectura (read replicas)**: réplicas **asíncronas** para **escalar lecturas** (hasta 15 en algunos motores), incluso entre regiones; pueden promoverse.
+- **Multi-AZ**: réplica **síncrona** en otra AZ para **alta disponibilidad** y conmutación automática (mismo endpoint DNS). Hay dos modalidades: **instancia** (una réplica en espera que no sirve lecturas) y **clúster** (dos réplicas en espera que sí sirven lecturas).
+- **Réplicas de lectura (read replicas)**: réplicas **asíncronas** para **escalar lecturas** (hasta 15 por instancia), incluso entre regiones; pueden promoverse. RDS no las añade ni las quita automáticamente.
 - **Backups automáticos** (retención de 0 a 35 días, restauración a un punto en el tiempo) y **snapshots manuales**.
 - **Cifrado** con KMS (se elige al crear), **IAM authentication**, grupos de seguridad, subred privada.
 - **RDS Proxy**: agrupa conexiones (útil con Lambda).
@@ -30,7 +30,7 @@ Servicio gestionado para MySQL, PostgreSQL, MariaDB, Oracle, SQL Server (y Db2).
 
 Base compatible con **MySQL y PostgreSQL**, hasta 5× / 3× más rápida según AWS.
 
-- Almacenamiento distribuido: **6 copias en 3 AZ**, crece automáticamente hasta 128 TiB.
+- Almacenamiento distribuido: **6 copias en 3 AZ**, crece automáticamente hasta 256 TiB en las versiones recientes (128 TiB en las anteriores).
 - Hasta **15 réplicas de lectura** con conmutación muy rápida; endpoints de escritura y de lectura.
 - **Aurora Serverless v2** (escala la capacidad automáticamente) y **Aurora Global Database** (replicación entre regiones, <1 s).
 
@@ -39,7 +39,7 @@ Base compatible con **MySQL y PostgreSQL**, hasta 5× / 3× más rápida según 
 NoSQL clave-valor y documento, serverless, de milisegundos de un dígito a cualquier escala, con replicación en 3 AZ.
 
 - **Clave primaria**: solo **partición** (hash) o **partición + ordenación**. Elige bien para repartir uniformemente.
-- **Capacidad**: **bajo demanda** (pago por petición) o **aprovisionada** (RCU/WCU, con autoescalado). 1 RCU = una lectura fuertemente consistente de hasta 4 KB por segundo; 1 WCU = una escritura de hasta 1 KB por segundo.
+- **Capacidad**: **bajo demanda** (pago por petición; es el modo por defecto y el recomendado) o **aprovisionada** (RCU/WCU, con autoescalado, para cargas estables y previsibles). 1 RCU = una lectura fuertemente consistente de hasta 4 KB por segundo; 1 WCU = una escritura de hasta 1 KB por segundo.
 - **Índices secundarios**: **GSI** (global, otra clave, cualquier momento) y **LSI** (local, misma partición, solo al crear la tabla).
 - **Consistencia**: eventual (por defecto) o fuerte en lectura.
 - **DAX**: caché en memoria específico. **Streams**: cambios de la tabla → Lambda. **TTL**: caducidad de elementos. **Global Tables**: multirregión activo-activo. **PITR** y copias de seguridad bajo demanda. **Transacciones** ACID.

@@ -19,7 +19,7 @@
   "04-servicios-red": [
     { "q": "¿Qué tipo de Service abre un puerto en todos los nodos (rango 30000–32767)?", "options": ["ClusterIP", "NodePort", "ExternalName", "Headless"], "answer": 1, "explain": "NodePort expone el servicio en la IP de cada nodo." },
     { "q": "Un Ingress no enruta tráfico. ¿Qué falta casi seguro?", "options": ["Un Ingress Controller", "Un ConfigMap", "Un PV", "Un DaemonSet de red"], "answer": 0, "explain": "El Ingress es solo la configuración; lo implementa un controller." },
-    { "q": "Un Service no tiene endpoints. ¿Causa más probable?", "options": ["Falta metrics-server", "El selector no coincide con las etiquetas de los Pods o no están Ready", "El namespace es kube-system", "Falta un PVC"], "answer": 1, "explain": "Comprueba `kubectl get endpoints` y las etiquetas." },
+    { "q": "Un Service no tiene endpoints. ¿Causa más probable?", "options": ["Falta metrics-server", "El selector no coincide con las etiquetas de los Pods o no están Ready", "El namespace es kube-system", "Falta un PVC"], "answer": 1, "explain": "Comprueba `kubectl get endpointslices` y las etiquetas." },
     { "q": "El nombre DNS completo de un Service `web` en el namespace `dev` es:", "options": ["web.dev.svc.cluster.local", "dev.web.cluster", "web.svc.dev", "web.dev.pod"], "answer": 0, "explain": "Formato `<servicio>.<ns>.svc.cluster.local`." }
   ],
   "05-config-almacenamiento": [

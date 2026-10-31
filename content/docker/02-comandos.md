@@ -65,11 +65,12 @@ docker save -o img.tar nginx:1.27 / docker load -i img.tar
 docker system df                # uso de disco
 docker container prune
 docker image prune -a
-docker volume prune
+docker volume prune              # solo volúmenes anónimos sin usar
+docker volume prune -a           # también los volúmenes con nombre sin usar
 docker system prune -a --volumes
 ```
 
-> Cuidado: `prune` con `--volumes` borra datos persistentes que no estén en uso.
+> `docker system prune` no toca los volúmenes salvo con `--volumes`, y aun así solo borra los **anónimos** sin usar. Para borrar volúmenes con nombre hay que usar `docker volume prune -a` o `docker volume rm`: esos datos no se recuperan.
 
 ## Códigos de salida frecuentes
 

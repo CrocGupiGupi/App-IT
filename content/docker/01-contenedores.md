@@ -36,10 +36,12 @@ Un **contenedor** es un proceso (o grupo de procesos) aislado que comparte el ke
 
 Estándares **OCI** (Open Container Initiative): formato de imagen y runtime, por lo que las imágenes de Docker funcionan en otros motores (Podman, containerd, CRI-O).
 
+Desde Docker Engine 29, las instalaciones nuevas usan el **containerd image store** por defecto (admite imágenes multiplataforma y attestations). Las instalaciones actualizadas conservan los drivers clásicos, como `overlay2`. Compruébalo con `docker info`.
+
 ## Docker Desktop y alternativas
 
 - **Docker Engine**: componente de servidor en Linux, libre.
-- **Docker Desktop**: aplicación para Windows/macOS/Linux con interfaz gráfica; su licencia comercial depende del tamaño de la empresa.
+- **Docker Desktop**: aplicación para Windows/macOS/Linux con interfaz gráfica. Es gratis para uso personal, educación, código abierto no comercial y empresas con menos de 250 empleados **y** menos de 10 millones de dólares de ingresos anuales; el resto necesita suscripción.
 - **Podman**: alternativa sin demonio y por defecto sin root, con CLI compatible.
 
 ## Para qué sirven

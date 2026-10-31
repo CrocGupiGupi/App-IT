@@ -12,8 +12,8 @@
 
 ### Bridge por defecto frente a bridge definida por el usuario
 
-- En la red `bridge` por defecto los contenedores se ven por IP, **no por nombre**.
-- En una red **definida por el usuario** hay **DNS interno**: un contenedor resuelve a otro por su nombre. Además aísla mejor.
+- En la red `bridge` por defecto los contenedores se ven por IP, **no por nombre**. La alternativa antigua, `--link`, está obsoleta y se eliminará de esta red en Docker 30.
+- En una red **definida por el usuario** hay **DNS interno**: un contenedor resuelve a otro por su nombre o alias (no por los nombres generados automáticamente). Además aísla mejor y permite conectar y desconectar contenedores en caliente.
 
 ```bash
 docker network create backend
@@ -51,7 +51,7 @@ docker volume inspect datos
 
 - `--mount` es más explícito y detallado que `-v`; con bind mount, si la ruta no existe `--mount` da error y `-v` la crea.
 - Un volumen vacío se **inicializa con el contenido** que la imagen tenga en esa ruta; un bind mount **oculta** lo que hubiera.
-- Los volúmenes sobreviven al borrado del contenedor. Para eliminarlos: `docker rm -v` o `docker volume rm`.
+- Los volúmenes sobreviven al borrado del contenedor. `docker rm -v` elimina solo los **anónimos** asociados; los volúmenes con nombre se borran con `docker volume rm`.
 
 ### Copia de seguridad de un volumen
 

@@ -116,4 +116,4 @@ securityContext:
 - Cifrar Secrets en etcd; proteger etcd (TLS, acceso restringido).
 - Proteger la API (no exponerla a Internet) y el kubelet (autenticación y autorización activas).
 - Registro de auditoría (*audit log*) del API server.
-- Herramientas: Trivy, kube-bench (CIS Benchmark), kube-hunter, Falco (detección en ejecución).
+- Herramientas: Trivy, kube-bench (CIS Benchmark), Falco (detección en ejecución).

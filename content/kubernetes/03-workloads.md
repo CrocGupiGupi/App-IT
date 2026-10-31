@@ -14,16 +14,17 @@ spec:
     - name: espera-db
       image: busybox:1.36
       command: ["sh", "-c", "until nc -z db 5432; do sleep 2; done"]
+    - name: logger          # sidecar nativo
+      image: fluent/fluent-bit
+      restartPolicy: Always
   containers:
     - name: app
       image: miapp:1.0
-    - name: logger          # sidecar
-      image: fluent/fluent-bit
   restartPolicy: Always
 ```
 
 - **initContainers**: se ejecutan en orden y deben terminar antes de arrancar los contenedores principales.
-- **Sidecar**: contenedor auxiliar (logs, proxy, sincronización).
+- **Sidecar**: contenedor auxiliar (logs, proxy, sincronización). Desde la v1.33 es estable el **sidecar nativo**: se declara en `initContainers` con `restartPolicy: Always`. Sigue en marcha durante toda la vida del Pod, se detiene después del contenedor principal y no impide que un Job termine.
 - **restartPolicy**: `Always` (por defecto), `OnFailure`, `Never`.
 - Fases: `Pending`, `Running`, `Succeeded`, `Failed`, `Unknown`.
 

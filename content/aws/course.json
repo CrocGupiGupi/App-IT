@@ -3,8 +3,8 @@
   "title": "Amazon Web Services",
   "icon": "🟧",
   "description": "Servicios clave de AWS: IAM, cómputo, almacenamiento, redes, datos, serverless y operaciones.",
-  "certs": ["CLF-C02 (Cloud Practitioner)", "SAA-C03 (Solutions Architect Associate)", "DVA-C02 (Developer Associate)", "SysOps Administrator Associate", "DevOps Engineer Professional", "Security Specialty"],
-  "note": "AWS renueva versiones y códigos de examen con regularidad. **Consulta la guía oficial de cada examen en aws.amazon.com/certification** y practica con la capa gratuita o créditos (vigila siempre los costes).",
+  "certs": ["CLF-C02 (Cloud Practitioner)", "SAA-C03 (Solutions Architect Associate)", "DVA-C03 (Developer Associate)", "SOA-C03 (CloudOps Engineer Associate, antes SysOps)", "SAP-C03 (Solutions Architect Professional)", "DOP-C02 (DevOps Engineer Professional)", "SCS-C03 (Security Specialty)"],
+  "note": "Revisado el 31/10/2026 con la documentación oficial de AWS. Associate: 65 preguntas en 130 minutos y 150 USD. CLF-C02: 65 preguntas en 90 minutos y 100 USD. DOP-C02: 75 preguntas en 180 minutos y 300 USD. Todas duran 3 años. Advanced Networking Specialty se retira el 31/12/2026. Comprueba en aws.amazon.com/certification si tu examen sigue disponible en tu idioma: algunas versiones se retiran a finales de 2026. Vigila siempre los costes al practicar.",
   "lessons": [
     { "id": "01-fundamentos", "title": "Fundamentos, infraestructura global y cuentas", "level": "Fundamentos", "minutes": 14, "file": "01-fundamentos.md" },
     { "id": "02-iam", "title": "IAM: identidades y permisos", "level": "Fundamentos", "minutes": 16, "file": "02-iam.md" },

@@ -87,7 +87,7 @@ Rolling, **blue-green** (dos entornos y conmutación), **canary** (porcentaje cr
 
 1. **AZ-900**: visión general de conceptos y servicios.
 2. **AZ-104**: administración de identidad, redes, cómputo, almacenamiento y monitorización (práctica intensa).
-3. **AZ-204** (desarrollo) o **AZ-305** (arquitectura) o **AZ-400** (DevOps), según tu perfil.
+3. **AZ-305** (arquitectura, exige AZ-104) o **AZ-400** (DevOps, exige AZ-104 o la antigua AZ-204), o **AI-200** (desarrollo con IA) y **SC-500** (seguridad), que sustituyen a AZ-204 y AZ-500, según tu perfil.
 
 ## Consejos de estudio
 

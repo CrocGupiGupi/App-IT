@@ -7,7 +7,8 @@ Red privada aislada en Azure dentro de una región y una suscripción.
 - Espacio de direcciones CIDR privado (`10.0.0.0/16`), dividido en **subredes**.
 - Azure reserva **5 direcciones** por subred (la primera, la última y tres más).
 - Las VNets **no se solapan** si quieres conectarlas.
-- La comunicación saliente a Internet funciona por defecto; la entrada requiere IP pública (y reglas).
+- **Las subredes nuevas son privadas por defecto**: en las VNets nuevas creadas con APIs posteriores al 31/03/2026, y en el portal, las VMs necesitan un método de salida explícito. El recomendado es **NAT Gateway**; también valen un Load Balancer Standard con reglas de salida, una IP pública en la VM o un firewall con UDR. Las VNets existentes no cambian.
+- La entrada desde Internet requiere IP pública y reglas que la permitan.
 
 ```bash
 az network vnet create -g rg-demo -n vnet-demo --address-prefixes 10.0.0.0/16 \
@@ -52,11 +53,11 @@ az network vnet create -g rg-demo -n vnet-demo --address-prefixes 10.0.0.0/16 \
 
 > Regla mnemotécnica: ¿global o regional? ¿HTTP o no HTTP? → Front Door / Traffic Manager (global) frente a Application Gateway / Load Balancer (regional).
 
-Load Balancer **Standard** usa sondeos de estado (health probes), zonas de disponibilidad y exige NSG para permitir el tráfico.
+Load Balancer **Standard** usa sondeos de estado (health probes), zonas de disponibilidad y exige NSG para permitir el tráfico. El SKU **Basic se retiró** el 30/09/2025.
 
 ## IPs públicas
 
-SKU **Standard** (estática, zona-redundante, segura por defecto) y Basic (en retirada). Una IP pública es opcional para una VM; mejor usar Bastion o balanceadores.
+SKU **Standard** (estática, zona-redundante, cerrada por defecto hasta que un NSG permita el tráfico). El SKU **Basic se retiró** el 30/09/2025. Una IP pública es opcional para una VM; mejor usar Bastion o balanceadores.
 
 ## Otros
 

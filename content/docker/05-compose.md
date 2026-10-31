@@ -1,6 +1,6 @@
 # Docker Compose
 
-**Compose** define y ejecuta aplicaciones multicontenedor con un único fichero YAML (`compose.yaml`). Hoy se usa como plugin de Docker: `docker compose` (v2), y el campo `version:` ya no es necesario.
+**Compose** define y ejecuta aplicaciones multicontenedor con un único fichero YAML (`compose.yaml`). Hoy se usa como plugin de Docker: `docker compose` (la versión actual es la 5). El campo `version:` es obsoleto: si lo pones, Compose muestra un aviso y valida igualmente con el esquema más reciente.
 
 ## Ejemplo completo
 

@@ -39,7 +39,7 @@
   ],
   "07-integracion-serverless": [
     { "q": "Un mensaje debe llegar a varias colas SQS a la vez. ¿Qué patrón?", "options": ["SQS FIFO", "SNS fan-out hacia SQS", "Kinesis Firehose", "Step Functions"], "answer": 1, "explain": "Un tema SNS con varias colas suscritas." },
-    { "q": "Garantiza orden estricto y entrega exactamente una vez:", "options": ["SQS Standard", "SQS FIFO", "SNS Standard", "EventBridge"], "answer": 1, "explain": "FIFO tiene límites de rendimiento superiores a los de Standard." },
+    { "q": "Garantiza orden estricto y entrega exactamente una vez:", "options": ["SQS Standard", "SQS FIFO", "SNS Standard", "EventBridge"], "answer": 1, "explain": "FIFO tiene un rendimiento más limitado que Standard, que es prácticamente ilimitado pero no garantiza orden." },
     { "q": "Mensajes que fallan repetidamente se envían a...", "options": ["Una DLQ (dead-letter queue)", "Otra región", "CloudTrail", "S3 Glacier"], "answer": 0, "explain": "Permite investigarlos sin bloquear la cola." },
     { "q": "Orquestar un flujo con ramas, reintentos y gestión de errores sin código de coordinación:", "options": ["Step Functions", "SNS", "Route 53", "CloudFront"], "answer": 0, "explain": "Usa máquinas de estado." }
   ],

@@ -1,5 +1,5 @@
 // Cambia V al publicar para forzar la renovación de la caché.
-const V = 'estudio-it-v2';
+const V = 'estudio-it-v3';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'content/fields.json'];
 
 self.addEventListener('install', e => {

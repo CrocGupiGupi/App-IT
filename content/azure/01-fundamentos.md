@@ -18,7 +18,7 @@
 
 ### Modelos de nube
 
-**Pública**, **privada**, **híbrida** (Azure Arc, Azure Stack) y **multicloud**.
+**Pública**, **privada**, **híbrida** (Azure Arc, Azure Local, antes Azure Stack HCI) y **multicloud**.
 
 ### Responsabilidad compartida
 
@@ -27,7 +27,7 @@ El proveedor siempre se encarga de la infraestructura física; el cliente siempr
 ## Infraestructura global
 
 - **Región**: conjunto de centros de datos en una zona geográfica (West Europe, Spain Central…).
-- **Pares de regiones** (*region pairs*): regiones separadas por cientos de km para recuperación ante desastres.
+- **Pares de regiones** (*region pairs*): regiones asociadas para replicación y recuperación ante desastres. Muchas regiones nuevas **no tienen par** y se apoyan en las zonas de disponibilidad; entre ellas está **Spain Central**. Estar en una región con par no da conmutación automática.
 - **Zonas de disponibilidad (AZ)**: centros de datos físicamente separados dentro de una región (mínimo 3 en las regiones con soporte). Protegen frente a fallos de un centro de datos.
 - **Availability set**: reparte VMs entre dominios de fallo y de actualización dentro de un centro de datos.
 - **Geografías**, **regiones soberanas** (Azure Government, Azure China).

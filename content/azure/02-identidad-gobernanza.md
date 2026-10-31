@@ -14,7 +14,7 @@ Conceptos:
 
 ### Autenticación y acceso seguro
 
-- **MFA** (autenticación multifactor), **SSPR** (restablecimiento de contraseña por autoservicio), métodos sin contraseña (FIDO2, Authenticator).
+- **MFA** (autenticación multifactor), **SSPR** (restablecimiento de contraseña por autoservicio), métodos sin contraseña (FIDO2, Authenticator). La MFA es **obligatoria** en Azure para cuentas de usuario: en el portal desde 2024 y, desde octubre de 2025, para crear, cambiar o borrar recursos con CLI, PowerShell, IaC y API. Las identidades de carga de trabajo no se ven afectadas.
 - **Conditional Access**: políticas "si (usuario, ubicación, dispositivo, riesgo) entonces (exigir MFA, bloquear…)". Requiere Entra ID P1.
 - **Identity Protection** (riesgo de inicio de sesión), **PIM** (Privileged Identity Management: acceso *just-in-time* a roles) — P2.
 
@@ -70,5 +70,6 @@ Pares clave-valor para organizar y asignar costes. **No se heredan** automática
 
 ### Otros
 
-- **Microsoft Purview** (gobierno de datos y cumplimiento), **Blueprints** (sustituido por plantillas + Policy), **Service Trust Portal** (informes de cumplimiento).
+- **Microsoft Purview** (gobierno de datos y cumplimiento) y **Service Trust Portal** (informes de cumplimiento).
+- **Azure Blueprints** se retira el 31 de enero de 2027; se sustituye por **Deployment Stacks** y **Template Specs**.
 - **Azure Landing Zones**: arquitectura de referencia para organizar suscripciones y gobernanza a escala.
