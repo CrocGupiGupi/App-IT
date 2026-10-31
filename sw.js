@@ -1,9 +1,26 @@
 // Cambia V al publicar para forzar la renovación de la caché.
-const V = 'estudio-it-v3';
+const V = 'estudio-it-v4';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'content/fields.json'];
 
+// El temario sale de los course.json, así un campo nuevo no obliga a tocar este fichero.
+async function contentUrls() {
+  const json = u => fetch(u).then(r => r.json());
+  const ids = await json('content/fields.json');
+  const courses = await Promise.all(ids.map(id => json(`content/${id}/course.json`)));
+  return courses.flatMap((c, i) => {
+    const dir = `content/${ids[i]}/`;
+    return ['course.json', 'quiz.json', ...c.lessons.map(l => l.file)].map(f => dir + f);
+  });
+}
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(V).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil((async () => {
+    const c = await caches.open(V);
+    await c.addAll(SHELL);
+    // Un fichero que falle no impide instalar: quiz.json es opcional y el resto se guarda al abrirlo.
+    await Promise.allSettled((await contentUrls()).map(u => c.add(u)));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener('activate', e => {
