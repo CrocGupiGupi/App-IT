@@ -36,7 +36,8 @@ Títulos `#`–`####`, párrafos, **negrita**, *cursiva*, `código`, enlaces, li
 ## Funciones de estudio
 
 - Test de una pregunta por pantalla al final de cada lección, con la respuesta al momento.
-- **Repaso aleatorio** (10 preguntas) y **simulacro cronometrado** (hasta 20 preguntas, 90 s por pregunta), que corrige al terminar e indica qué lecciones repasar.
+- **Repaso aleatorio** (10 preguntas) y **simulacro cronometrado** de 20, 40 o 65 preguntas, a 90 s por pregunta. Reparte las preguntas por lecciones, corrige al terminar e indica qué repasar. Las opciones se mezclan en cada test, así que `answer` no depende de la posición en pantalla.
+- Enlaces a la **práctica oficial** de cada examen (campo opcional `practice` de `certs`) y a laboratorios (campo opcional `labs` del curso).
 - **Buscador** en el menú lateral sobre el texto de todas las lecciones.
 - **Certificaciones y precios**: enlace oficial, precio, formato e idioma de cada examen. Los precios son orientativos y llevan fecha de consulta.
 - Inicio con la siguiente lección, lecciones completadas, días seguidos, acierto en los tests y lecciones que conviene repasar.

@@ -4,7 +4,7 @@
   "icon": "🐳",
   "description": "De qué es un contenedor a construir, asegurar y orquestar imágenes con Docker.",
   "certs": [
-    { "code": "DCA", "name": "Docker Certified Associate", "price": "200 €", "format": "55 preguntas, 90 min", "info": "Válida 2 años. Cada intento se paga aparte y hay que esperar 14 días tras suspender.", "url": "https://training.mirantis.com/dca-certification-exam/" }
+    { "code": "DCA", "name": "Docker Certified Associate", "price": "200 €", "format": "55 preguntas, 90 min", "info": "Válida 2 años. Cada intento se paga aparte y hay que esperar 14 días tras suspender.", "url": "https://training.mirantis.com/dca-certification-exam/", "practice": {"label": "Guía oficial con preguntas de ejemplo", "url": "https://a.storyblok.com/f/146871/x/2001ce939c/docker-study-guide_v1-5-jan-2025.pdf"} }
   ],
   "related": ["Base para KCNA, CKAD y CKA", "Base para AI-200 (Azure) y DVA-C03 (AWS)"],
   "certsNote": "Precio de Mirantis, que también indica 199 USD. Consultado el 01/11/2026.",

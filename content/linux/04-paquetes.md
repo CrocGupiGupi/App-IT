@@ -89,7 +89,7 @@ Flatpak instala aplicaciones de escritorio aisladas, con sus propias dependencia
 
 ```bash
 flatpak remotes
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak search editor
 flatpak install flathub org.gnome.Calculator
 flatpak list

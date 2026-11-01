@@ -182,6 +182,13 @@ function mountQuiz(box, qs, opts = {}) {
 
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
+// Mezcla las opciones para que la posición no delate la respuesta.
+function mixOptions(q) {
+  const order = shuffle(q.options.map((_, i) => i));
+  const answer = [].concat(q.answer).map(j => order.indexOf(j));
+  return { ...q, options: order.map(i => q.options[i]), answer: Array.isArray(q.answer) ? answer : answer[0] };
+}
+
 /* ---------- Piezas de la ruta ---------- */
 const main = $('#main');
 let lineIds = [];
@@ -283,7 +290,9 @@ async function courseView(fid) {
 function certList(c) {
   return '<ul class="certs">' + c.certs.map(x =>
     `<li><a href="${esc(x.url)}" target="_blank" rel="noopener"><strong>${esc(x.code)}</strong> ${esc(x.name)}<span class="sr"> (abre la web oficial)</span></a><b>${esc(x.price)}</b>` +
-    `<small>${[x.format, x.info].filter(Boolean).map(esc).join('. ')}</small></li>`).join('') + '</ul>' +
+    `<small>${[x.format, x.info].filter(Boolean).map(esc).join('. ')}</small>` +
+    (x.practice ? `<small><a href="${esc(x.practice.url)}" target="_blank" rel="noopener">${esc(x.practice.label)}</a></small>` : '') + '</li>').join('') + '</ul>' +
+    (c.labs ? `<p class="muted"><a href="${esc(c.labs.url)}" target="_blank" rel="noopener">${esc(c.labs.label)}</a></p>` : '') +
     (c.related?.length ? `<p class="muted">${c.related.map(esc).join('. ')}.</p>` : '') +
     `<p class="muted fine">${esc(c.certsNote)}</p>`;
 }
@@ -301,7 +310,7 @@ async function lessonView(fid, lid) {
   const l = c.lessons[idx];
   const key = `${fid}/${lid}`;
   const [text, quiz] = await Promise.all([load(`content/${fid}/${l.file}`, 'text'), load(`content/${fid}/quiz.json`).catch(() => ({}))]);
-  const qs = quiz[lid] || [];
+  const qs = (quiz[lid] || []).map(mixOptions);
   const prev = c.lessons[idx - 1], next = c.lessons[idx + 1];
   const done = progress()[key]?.done;
   store.set('last', { fid, lid });
@@ -323,7 +332,7 @@ async function lessonView(fid, lid) {
 async function reviewView(fid) {
   const c = await course(fid);
   const quiz = await load(`content/${fid}/quiz.json`).catch(() => ({}));
-  const qs = shuffle(Object.values(quiz).flat()).slice(0, 10);
+  const qs = shuffle(Object.values(quiz).flat()).slice(0, 10).map(mixOptions);
   show(`<div class="crumb"><a href="#/f/${fid}">${esc(c.title)}</a></div><h1>Repaso aleatorio</h1><p class="muted">Preguntas mezcladas de todo el campo, con la respuesta al momento.</p><div id="quiz"></div>`);
   mountQuiz($('#quiz'), qs, { onDone: touch, onRetry: () => reviewView(fid), retryLabel: 'Nuevo repaso' });
 }
@@ -331,12 +340,33 @@ async function reviewView(fid) {
 let timer = null;
 const stopTimer = () => { clearInterval(timer); timer = null; };
 
-async function mockView(fid) {
+const MOCK_SIZES = [20, 40, 65];
+const MOCK_SECONDS = 90;
+
+// Reparte por lecciones para que un simulacro no se concentre en un solo tema.
+function pickMock(quiz, n) {
+  const lanes = Object.entries(quiz).map(([lesson, qs]) => shuffle(qs).map(q => ({ ...q, lesson })));
+  const picked = [];
+  for (let i = 0; picked.length < n; i++) {
+    for (const lane of shuffle(lanes)) if (lane[i] && picked.length < n) picked.push(lane[i]);
+  }
+  return shuffle(picked).map(mixOptions);
+}
+
+async function mockView(fid, size) {
   const c = await course(fid);
   const quiz = await load(`content/${fid}/quiz.json`).catch(() => ({}));
-  const all = Object.entries(quiz).flatMap(([lesson, qs]) => qs.map(q => ({ ...q, lesson })));
-  const qs = shuffle(all).slice(0, Math.min(20, all.length));
-  const total = qs.length * 90; // 90 s por pregunta
+  const pool = Object.values(quiz).flat().length;
+  if (!MOCK_SIZES.includes(size) || size > pool) {
+    const practice = c.certs.filter(x => x.practice);
+    return show(`<div class="crumb"><a href="#/f/${fid}">${esc(c.title)}</a></div><h1>Simulacro cronometrado</h1>` +
+      `<p class="muted">Preguntas propias repartidas por todo el campo, entre ${pool} disponibles. Sirven para medirte, pero no son preguntas reales de examen.</p>` +
+      `<div class="row">${MOCK_SIZES.filter(n => n <= pool).map((n, i) => `<a class="btn${i ? ' ghost' : ''}" href="#/f/${fid}/simulacro/${n}">${n} preguntas, ${Math.round(n * MOCK_SECONDS / 60)} min</a>`).join('')}</div>` +
+      (practice.length ? '<h2>Práctica oficial</h2><ul class="list">' + practice.map(x =>
+        `<li><a href="${esc(x.practice.url)}" target="_blank" rel="noopener"><span><strong>${esc(x.code)}</strong><small>${esc(x.practice.label)}</small></span></a></li>`).join('') + '</ul>' : ''));
+  }
+  const qs = pickMock(quiz, size);
+  const total = qs.length * MOCK_SECONDS;
   show(`<div class="crumb"><a href="#/f/${fid}">${esc(c.title)}</a></div><h1>Simulacro cronometrado</h1>` +
     `<p class="muted">${qs.length} preguntas en ${Math.round(total / 60)} minutos. Verás el resultado al terminar. Si se acaba el tiempo, se corrige solo.</p>` +
     '<p class="timer" role="timer" aria-live="off" aria-label="Tiempo restante"><span id="clock"></span></p><div id="quiz"></div><div id="weak"></div>');
@@ -346,7 +376,7 @@ async function mockView(fid) {
   const finish = mountQuiz($('#quiz'), qs, {
     exam: true,
     retryLabel: 'Nuevo simulacro',
-    onRetry: () => mockView(fid),
+    onRetry: () => mockView(fid, size),
     onDone: () => {
       stopTimer();
       touch();
@@ -411,7 +441,7 @@ async function router() {
   $('#scrim').hidden = true;
   $('#menu').setAttribute('aria-expanded', 'false');
   stopTimer();
-  const [, kind, fid, lid] = location.hash.split('/');
+  const [, kind, fid, lid, extra] = location.hash.split('/');
   try {
     lineIds = await fieldIds();
     const inField = kind === 'f' && fid;
@@ -424,7 +454,7 @@ async function router() {
     else if (kind !== 'f') await home();
     else if (!lid) await courseView(fid);
     else if (lid === 'repaso') await reviewView(fid);
-    else if (lid === 'simulacro') await mockView(fid);
+    else if (lid === 'simulacro') await mockView(fid, +extra);
     else await lessonView(fid, lid);
   } catch (e) {
     show(`<p>No se pudo cargar el contenido (${esc(e.message)}). <a href="#/">Volver al inicio</a></p>`);

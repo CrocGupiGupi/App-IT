@@ -30,7 +30,7 @@ udevadm settle          # espera a que aparezca el dispositivo
 
 | Tipo | Crear | Ampliar | Reducir |
 |---|---|---|---|
-| XFS | `mkfs.xfs` | `xfs_growfs /punto` (montado) | No se puede |
+| XFS | `mkfs.xfs` | `xfs_growfs /punto` (montado) | No en la práctica |
 | ext4 | `mkfs.ext4` | `resize2fs /dev/...` | Sí, desmontado |
 | VFAT | `mkfs.vfat` | No habitual | No habitual |
 

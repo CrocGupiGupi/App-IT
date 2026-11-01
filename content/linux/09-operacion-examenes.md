@@ -14,7 +14,7 @@ podman exec -it web sh
 podman stop web; podman rm web
 ```
 
-La opción `:Z` reetiqueta el volumen para SELinux. En sistemas con Docker, los comandos equivalentes empiezan por `docker`. Consulta el campo Docker de esta app para el detalle.
+La opción `:Z` reetiqueta el volumen para SELinux de forma privada para ese contenedor; `:z` lo comparte entre contenedores. En sistemas con Docker, los comandos equivalentes empiezan por `docker`. Consulta el campo Docker de esta app para el detalle.
 
 ### Un contenedor como servicio con Quadlet
 

@@ -129,7 +129,7 @@ journalctl -b -1               # arranque anterior
 ls /var/log                    # messages, secure, syslog, auth.log
 ```
 
-**Conservar el journal tras reiniciar**:
+**Conservar el journal tras reiniciar**: el valor por defecto depende de la distribución. Comprueba si existe `/var/log/journal` y, si no, actívalo así:
 
 ```bash
 mkdir -p /etc/systemd/journald.conf.d
