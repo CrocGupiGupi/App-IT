@@ -163,7 +163,19 @@ th { border-bottom: 2px solid var(--text); font-weight: 700; }
 @media (min-width: 80rem) { .split { grid-template-columns: minmax(0, 1fr) minmax(0, 21rem); } }
 .side h2 { font-size: 1.125rem; margin-top: 2rem; }
 .certs { margin: .5rem 0; padding: 0; list-style: none; }
-.certs li { padding: .45rem 0; border-bottom: 1px solid var(--rule); line-height: 1.35; }
+.certs li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .1rem 1rem; align-items: baseline; margin: 0; padding: .6rem 0 .5rem; border-bottom: 1px solid var(--rule); line-height: 1.35; }
+.certs b { font-weight: 800; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.certs small { grid-column: 1 / -1; color: var(--muted); }
+.certs a { overflow-wrap: anywhere; }
+main .certs a, main .side a { color: inherit; font-weight: 400; }
+.certs a strong { color: var(--line); }
+.fine { font-size: .875rem; line-height: 1.4; }
+.certgroup { margin-top: 2.25rem; }
+.certgroup h2 { display: flex; align-items: center; gap: .6rem; margin: 0 0 .25rem; font-size: 1.25rem; }
+.certgroup h2 a { text-decoration: none; }
+.certgroup h2 a:hover { text-decoration: underline; }
+#nav a.field.plain { margin-top: .75rem; padding-left: .5rem; }
+#nav a.field.plain span { flex: 1; }
 .zone { position: relative; padding-left: 2.1rem; }
 .zone::before { content: ""; position: absolute; left: .55rem; top: 0; bottom: 0; width: .25rem; background: var(--rule); }
 .zone:last-child::before { bottom: 1.6rem; }

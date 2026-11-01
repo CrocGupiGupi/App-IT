@@ -39,6 +39,13 @@ Contraste de las lecciones con fuentes oficiales. No es una revisión línea a l
 - [Capa gratuita](https://aws.amazon.com/free/), [planes de soporte](https://aws.amazon.com/premiumsupport/plans/), [IPv4 públicas](https://aws.amazon.com/vpc/pricing/), [7 R](https://docs.aws.amazon.com/prescriptive-guidance/latest/large-migration-guide/migration-strategies.html).
 - [NAT regional](https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html), [Multi-AZ](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html), [DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/capacity-mode.html), [Security Hub CSPM](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html).
 
+## Precios de examen (01/11/2026)
+
+- Docker: [Mirantis](https://training.mirantis.com/dca-certification-exam/).
+- Kubernetes: páginas de cada examen en [Linux Foundation](https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/); indican el precio con el signo $.
+- Azure: precio para España que muestra [Microsoft Learn](https://learn.microsoft.com/es-es/credentials/certifications/azure-administrator/), sin impuestos.
+- AWS: tabla de precios de [AWS](https://aws.amazon.com/certification/policies/before-testing/) para Europa, sin impuestos.
+
 ## Pendiente de confirmar
 
 - **DCA**: dominios y pesos de la guía oficial (el PDF no se pudo leer).

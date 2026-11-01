@@ -3,8 +3,17 @@
   "title": "Amazon Web Services",
   "icon": "🟧",
   "description": "Servicios clave de AWS: IAM, cómputo, almacenamiento, redes, datos, serverless y operaciones.",
-  "certs": ["CLF-C02 (Cloud Practitioner)", "SAA-C03 (Solutions Architect Associate)", "DVA-C03 (Developer Associate)", "SOA-C03 (CloudOps Engineer Associate, antes SysOps)", "SAP-C03 (Solutions Architect Professional)", "DOP-C02 (DevOps Engineer Professional)", "SCS-C03 (Security Specialty)"],
-  "note": "Revisado el 31/10/2026 con la documentación oficial de AWS. Associate: 65 preguntas en 130 minutos y 150 USD. CLF-C02: 65 preguntas en 90 minutos y 100 USD. DOP-C02: 75 preguntas en 180 minutos y 300 USD. Todas duran 3 años. Advanced Networking Specialty se retira el 31/12/2026. Comprueba en aws.amazon.com/certification si tu examen sigue disponible en tu idioma: algunas versiones se retiran a finales de 2026. Vigila siempre los costes al practicar.",
+  "certs": [
+    { "code": "CLF-C02", "name": "Cloud Practitioner", "price": "85 €", "format": "65 preguntas, 90 min, en español de España", "url": "https://aws.amazon.com/certification/certified-cloud-practitioner/" },
+    { "code": "SAA-C03", "name": "Solutions Architect Associate", "price": "128 €", "format": "65 preguntas, 130 min, en español de España", "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/" },
+    { "code": "DVA-C03", "name": "Developer Associate", "price": "128 €", "format": "65 preguntas, 130 min, en español de Latinoamérica", "url": "https://aws.amazon.com/certification/certified-developer-associate/" },
+    { "code": "SOA-C03", "name": "CloudOps Engineer Associate, antes SysOps", "price": "128 €", "format": "65 preguntas, 130 min", "info": "No está en español.", "url": "https://aws.amazon.com/certification/certified-cloudops-engineer-associate/" },
+    { "code": "SAP-C03", "name": "Solutions Architect Professional", "price": "256 €", "format": "75 preguntas, 180 min, en español de Latinoamérica", "url": "https://aws.amazon.com/certification/certified-solutions-architect-professional/" },
+    { "code": "DOP-C02", "name": "DevOps Engineer Professional", "price": "256 €", "format": "75 preguntas, 180 min", "info": "No está en español.", "url": "https://aws.amazon.com/certification/certified-devops-engineer-professional/" },
+    { "code": "SCS-C03", "name": "Security Specialty", "price": "256 €", "format": "65 preguntas, 170 min", "info": "La versión en español de Latinoamérica se retira tras el 31/12/2026.", "url": "https://aws.amazon.com/certification/certified-security-specialty/" }
+  ],
+  "certsNote": "Precios de AWS para Europa, sin impuestos, consultados el 01/11/2026. En dólares son 100, 150 y 300 USD. AWS los revisa al menos cada mayo.",
+  "note": "Revisado el 01/11/2026 con la documentación oficial de AWS. Todas las certificaciones duran 3 años. Advanced Networking Specialty se retira el 31/12/2026. Vigila siempre los costes al practicar.",
   "lessons": [
     { "id": "01-fundamentos", "title": "Fundamentos, infraestructura global y cuentas", "level": "Fundamentos", "minutes": 14, "file": "01-fundamentos.md" },
     { "id": "02-iam", "title": "IAM: identidades y permisos", "level": "Fundamentos", "minutes": 16, "file": "02-iam.md" },

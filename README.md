@@ -21,7 +21,8 @@ python -m http.server 8000
 ## Añadir un campo nuevo (p. ej. Terraform)
 
 1. Crea `content/terraform/` con:
-   - `course.json` (copia el de otro campo: `id`, `title`, `icon`, `description`, `certs`, `note`, `lessons`).
+   - `course.json` (copia el de otro campo: `id`, `title`, `description`, `certs`, `certsNote`, `note`, `lessons`; `related` es opcional).
+   - Cada entrada de `certs` lleva `code`, `name`, `price`, `format` y `url`; `info` es opcional. Aparece en el campo y en **Certificaciones y precios**.
    - Una lección `.md` por entrada de `lessons` (campo `file`).
    - `quiz.json`: `{ "id-de-leccion": [ { "q", "options", "answer", "explain" } ] }`. `answer` es un índice, o un array de índices para respuesta múltiple.
 2. Añade `"terraform"` a `content/fields.json`.
@@ -37,6 +38,7 @@ Títulos `#`–`####`, párrafos, **negrita**, *cursiva*, `código`, enlaces, li
 - Test de una pregunta por pantalla al final de cada lección, con la respuesta al momento.
 - **Repaso aleatorio** (10 preguntas) y **simulacro cronometrado** (hasta 20 preguntas, 90 s por pregunta), que corrige al terminar e indica qué lecciones repasar.
 - **Buscador** en el menú lateral sobre el texto de todas las lecciones.
+- **Certificaciones y precios**: enlace oficial, precio, formato e idioma de cada examen. Los precios son orientativos y llevan fecha de consulta.
 - Inicio con la siguiente lección, lecciones completadas, días seguidos, acierto en los tests y lecciones que conviene repasar.
 
 ## Diseño

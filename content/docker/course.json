@@ -3,7 +3,11 @@
   "title": "Docker",
   "icon": "🐳",
   "description": "De qué es un contenedor a construir, asegurar y orquestar imágenes con Docker.",
-  "certs": ["Docker Certified Associate (DCA, de Mirantis)", "Base para KCNA / CKAD / CKA", "Base para AI-200 (Azure) y DVA-C03 (AWS)"],
+  "certs": [
+    { "code": "DCA", "name": "Docker Certified Associate", "price": "200 €", "format": "55 preguntas, 90 min", "info": "Válida 2 años. Cada intento se paga aparte y hay que esperar 14 días tras suspender.", "url": "https://training.mirantis.com/dca-certification-exam/" }
+  ],
+  "related": ["Base para KCNA, CKAD y CKA", "Base para AI-200 (Azure) y DVA-C03 (AWS)"],
+  "certsNote": "Precio de Mirantis, que también indica 199 USD. Consultado el 01/11/2026.",
   "note": "Revisado el 31/10/2026 con la documentación oficial (Docker Engine 29, Compose 5). La **DCA** la gestiona Mirantis: 55 preguntas (13 de opción múltiple y 42 DOMC) en 90 minutos, válida 2 años. La guía oficial publicada es de enero de 2025: **consúltala antes de examinarte**, porque aquí no se han podido contrastar sus dominios y pesos.",
   "lessons": [
     { "id": "01-contenedores", "title": "Qué son los contenedores y Docker", "level": "Fundamentos", "minutes": 12, "file": "01-contenedores.md" },

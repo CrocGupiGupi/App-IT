@@ -230,7 +230,7 @@ async function renderNav(cur) {
       return `<a class="field${open && !cur.lid ? ' cur' : ''}" href="#/f/${c.id}">${lineTag(c)}<span>${esc(c.title)}</span><small>${doneCount(c)}/${c.lessons.length}</small></a>` +
         (open ? `<ol class="sub" style="${lineVar(c.id)}">` + c.lessons.map(l =>
           `<li class="${isDone(c.id, l.id) ? 'done' : ''}"><a href="#/f/${c.id}/${l.id}"${l.id === cur.lid ? ' aria-current="page"' : ''}>${esc(l.title)}</a></li>`).join('') + '</ol>' : '');
-    }).join('') + '</div>' +
+    }).join('') + `<a class="field plain${cur.certs ? ' cur' : ''}" href="#/certificaciones"><span>Certificaciones y precios</span></a></div>` +
     '<div class="theme" role="group" aria-label="Tema">' + THEMES.map(([v, t]) => `<button type="button" data-theme-set="${v}" aria-pressed="${v === theme}">${t}</button>`).join('') + '</div>';
 }
 
@@ -276,8 +276,22 @@ async function courseView(fid) {
         const cls = [d?.done && 'done', l.id === open?.id && 'next'].filter(Boolean).join(' ');
         return `<li class="${cls}"><a href="#/f/${fid}/${l.id}"><span>${esc(l.title)}${d?.done ? '<span class="sr">, completada</span>' : ''}</span><small>${d?.of ? `${d.score}/${d.of}, ` : ''}${l.minutes} min</small></a></li>`;
       }).join('') + '</ol></section>').join('') + '</div>' +
-    '<aside class="side"><h2>Certificaciones relacionadas</h2><ul class="certs">' + c.certs.map(x => `<li>${esc(x)}</li>`).join('') + '</ul>' +
+    `<aside class="side"><h2>Certificaciones</h2>${certList(c)}` +
     (c.note ? `<blockquote><p>${inline(c.note)}</p></blockquote>` : '') + '</aside></div>', 'wide');
+}
+
+function certList(c) {
+  return '<ul class="certs">' + c.certs.map(x =>
+    `<li><a href="${esc(x.url)}" target="_blank" rel="noopener"><strong>${esc(x.code)}</strong> ${esc(x.name)}<span class="sr"> (abre la web oficial)</span></a><b>${esc(x.price)}</b>` +
+    `<small>${[x.format, x.info].filter(Boolean).map(esc).join('. ')}</small></li>`).join('') + '</ul>' +
+    (c.related?.length ? `<p class="muted">${c.related.map(esc).join('. ')}.</p>` : '') +
+    `<p class="muted fine">${esc(c.certsNote)}</p>`;
+}
+
+async function certsView() {
+  const courses = await Promise.all((await fieldIds()).map(course));
+  show('<h1>Certificaciones y precios</h1><p class="muted">Cada examen enlaza a su web oficial. Confirma allí el precio y el idioma antes de reservar.</p>' +
+    courses.map(c => `<section class="certgroup"><h2>${lineTag(c)} <a href="#/f/${c.id}">${esc(c.title)}</a></h2>${certList(c)}</section>`).join(''));
 }
 
 async function lessonView(fid, lid) {
@@ -404,8 +418,9 @@ async function router() {
     document.body.classList.toggle('tone', !!inField);
     document.body.style.cssText = inField ? lineVar(fid) : '';
     const q = kind === 'buscar' ? decodeURIComponent(fid || '') : '';
-    await renderNav({ fid: kind === 'f' ? fid : null, lid, q });
+    await renderNav({ fid: kind === 'f' ? fid : null, lid, q, certs: kind === 'certificaciones' });
     if (kind === 'buscar' && q.trim()) await searchView(q.trim());
+    else if (kind === 'certificaciones') await certsView();
     else if (kind !== 'f') await home();
     else if (!lid) await courseView(fid);
     else if (lid === 'repaso') await reviewView(fid);

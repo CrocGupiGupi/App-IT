@@ -3,7 +3,14 @@
   "title": "Kubernetes",
   "icon": "☸️",
   "description": "Arquitectura, objetos, redes, almacenamiento, seguridad y operación de clústeres.",
-  "certs": ["KCNA (Kubernetes and Cloud Native Associate)", "CKAD (Application Developer)", "CKA (Administrator)", "CKS (Security Specialist)", "KCSA (Security Associate)"],
+  "certs": [
+    { "code": "KCNA", "name": "Kubernetes and Cloud Native Associate", "price": "250 USD", "format": "Tipo test, 90 min", "info": "Incluye un segundo intento.", "url": "https://training.linuxfoundation.org/certification/kubernetes-cloud-native-associate/" },
+    { "code": "KCSA", "name": "Kubernetes and Cloud Native Security Associate", "price": "250 USD", "format": "Tipo test, 90 min", "info": "Incluye un segundo intento.", "url": "https://training.linuxfoundation.org/certification/kubernetes-and-cloud-native-security-associate-kcsa/" },
+    { "code": "CKAD", "name": "Certified Kubernetes Application Developer", "price": "445 USD", "format": "Práctico, 2 h", "info": "Incluye un segundo intento.", "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-application-developer-ckad/" },
+    { "code": "CKA", "name": "Certified Kubernetes Administrator", "price": "445 USD", "format": "Práctico, 2 h", "info": "Incluye un segundo intento y dos simulaciones en Killer.sh.", "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/" },
+    { "code": "CKS", "name": "Certified Kubernetes Security Specialist", "price": "445 USD", "format": "Práctico, 2 h", "info": "Requiere haber aprobado CKA. Incluye un segundo intento.", "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/" }
+  ],
+  "certsNote": "Precios de Linux Foundation para el examen suelto, que aparecen con el signo $. Consultados el 01/11/2026. Hay paquetes con cursos o suscripción y descuentos puntuales.",
   "note": "Revisado el 31/10/2026 con kubernetes.io y Linux Foundation. Versión estable: **1.37**. CKA y CKAD son prácticos de 2 horas sobre v1.37; CKS, también práctico, usa v1.35 y exige aprobar antes CKA. KCNA y KCSA son tipo test de 90 minutos. Todas duran 2 años. **Pesos CKA:** Troubleshooting 30 %, Arquitectura e instalación 25 %, Servicios y redes 20 %, Cargas y scheduling 15 %, Almacenamiento 10 %. **Pesos CKAD:** Configuración y seguridad 25 %, Diseño 20 %, Despliegue 20 %, Servicios y redes 20 %, Observabilidad 15 %.",
   "lessons": [
     { "id": "01-arquitectura", "title": "Arquitectura y conceptos", "level": "Fundamentos", "minutes": 14, "file": "01-arquitectura.md" },

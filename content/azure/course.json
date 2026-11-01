@@ -3,7 +3,15 @@
   "title": "Microsoft Azure",
   "icon": "☁️",
   "description": "Servicios de Azure: identidad, cómputo, almacenamiento, redes, datos, seguridad e IaC.",
-  "certs": ["AZ-900 (Azure Fundamentals)", "AZ-104 (Azure Administrator)", "AI-200 (Azure AI Cloud Developer)", "SC-500 (Cloud and AI Security Engineer)", "AZ-305 (Solutions Architect Expert; requiere AZ-104)", "AZ-400 (DevOps Engineer Expert; requiere AZ-104 o la antigua AZ-204)"],
+  "certs": [
+    { "code": "AZ-900", "name": "Azure Fundamentals", "price": "76 €", "format": "45 min, en español", "url": "https://learn.microsoft.com/es-es/credentials/certifications/azure-fundamentals/" },
+    { "code": "AZ-104", "name": "Azure Administrator Associate", "price": "126 €", "format": "100 min, en español", "url": "https://learn.microsoft.com/es-es/credentials/certifications/azure-administrator/" },
+    { "code": "AI-200", "name": "Azure AI Cloud Developer Associate", "price": "126 €", "format": "120 min, en español", "url": "https://learn.microsoft.com/es-es/credentials/certifications/azure-ai-cloud-developer-associate/" },
+    { "code": "SC-500", "name": "Cloud and AI Security Engineer Associate", "price": "126 €", "format": "120 min, en español", "info": "Aún no tiene evaluación de práctica oficial.", "url": "https://learn.microsoft.com/es-es/credentials/certifications/cloud-and-ai-security-engineer-associate/" },
+    { "code": "AZ-305", "name": "Azure Solutions Architect Expert", "price": "126 €", "format": "En español", "info": "Requiere AZ-104.", "url": "https://learn.microsoft.com/es-es/credentials/certifications/exams/az-305/" },
+    { "code": "AZ-400", "name": "DevOps Engineer Expert", "price": "126 €", "format": "En español", "info": "Requiere AZ-104 o la antigua Azure Developer Associate.", "url": "https://learn.microsoft.com/es-es/credentials/certifications/exams/az-400/" }
+  ],
+  "certsNote": "Precios para España sin impuestos, consultados el 01/11/2026. Microsoft los fija por país y pide confirmarlos antes de reservar.",
   "note": "Revisado el 31/10/2026 con Microsoft Learn. **AZ-204 se retiró el 31/07/2026 y AZ-500 el 31/08/2026**; sus sustitutos son AI-200 y SC-500, con un temario distinto y orientado a IA que este curso no cubre por completo. Las certificaciones Associate y Expert se renuevan cada año gratis con una evaluación en línea. Practica en una suscripción gratuita.",
   "lessons": [
     { "id": "01-fundamentos", "title": "Fundamentos cloud y jerarquía de Azure", "level": "Fundamentos", "minutes": 14, "file": "01-fundamentos.md" },
