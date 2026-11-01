@@ -1,6 +1,6 @@
 # Estudio IT
 
-PWA estática para estudiar y preparar certificaciones de **Docker, Kubernetes, Azure y AWS**. Sin backend ni paso de compilación: HTML + CSS + JS puro. Funciona en PC, móvil y tablet, se puede instalar y sigue funcionando sin conexión.
+PWA estática para estudiar y preparar certificaciones de **Docker, Kubernetes, Azure, AWS y Linux**. Sin backend ni paso de compilación: HTML + CSS + JS puro. Funciona en PC, móvil y tablet, se puede instalar y sigue funcionando sin conexión.
 
 ## Probar en local
 

@@ -1,0 +1,25 @@
+{
+  "id": "linux",
+  "title": "Linux",
+  "icon": "🐧",
+  "description": "De la línea de comandos a administrar usuarios, almacenamiento, redes, servicios y seguridad.",
+  "certs": [
+    { "code": "LFCS", "name": "Linux Foundation Certified System Administrator", "price": "445 USD", "format": "Práctico, 2 h", "info": "Válida 2 años. Incluye un segundo intento.", "url": "https://training.linuxfoundation.org/certification/linux-foundation-certified-sysadmin-lfcs/" },
+    { "code": "EX200", "name": "Red Hat Certified System Administrator (RHCSA)", "price": "Consultar", "format": "Práctico, sobre RHEL 10", "info": "Red Hat muestra el precio según el país.", "url": "https://www.redhat.com/en/services/training/ex200-red-hat-certified-system-administrator-rhcsa-exam" },
+    { "code": "LPIC-1", "name": "LPI Linux Administrator (101-500 y 102-500)", "price": "Consultar", "format": "Dos exámenes de 60 preguntas y 90 min, en español", "info": "Válida 5 años. Hay que aprobar los dos.", "url": "https://www.lpi.org/our-certifications/lpic-1-overview/" }
+  ],
+  "related": ["Base para CKA, CKAD y CKS", "Base para AZ-104 y SOA-C03"],
+  "certsNote": "Precio de LFCS de Linux Foundation, con el signo $. Red Hat y LPI no lo publican en estas páginas. Consultado el 01/11/2026.",
+  "note": "Temario basado el 01/11/2026 en los objetivos oficiales de LFCS y EX200 (RHEL 10). **Pesos LFCS:** Operaciones 25 %, Redes 25 %, Almacenamiento 20 %, Comandos esenciales 20 %, Usuarios y grupos 10 %. La EX200 exige que **todo siga funcionando tras reiniciar**. Practica en una máquina virtual y haz instantáneas: las pruebas de arranque, particiones y GRUB pueden dejar el sistema inservible.",
+  "lessons": [
+    { "id": "01-fundamentos", "title": "Fundamentos y línea de comandos", "level": "Fundamentos", "minutes": 16, "file": "01-fundamentos.md" },
+    { "id": "02-texto-scripts", "title": "Texto, redirecciones y scripts", "level": "Fundamentos", "minutes": 20, "file": "02-texto-scripts.md" },
+    { "id": "03-usuarios-permisos", "title": "Usuarios, grupos y permisos", "level": "Intermedio", "minutes": 22, "file": "03-usuarios-permisos.md" },
+    { "id": "04-paquetes", "title": "Paquetes y repositorios", "level": "Intermedio", "minutes": 14, "file": "04-paquetes.md" },
+    { "id": "05-procesos-servicios", "title": "Procesos, servicios y arranque", "level": "Intermedio", "minutes": 25, "file": "05-procesos-servicios.md" },
+    { "id": "06-almacenamiento", "title": "Almacenamiento", "level": "Intermedio", "minutes": 25, "file": "06-almacenamiento.md" },
+    { "id": "07-redes", "title": "Redes", "level": "Intermedio", "minutes": 25, "file": "07-redes.md" },
+    { "id": "08-seguridad", "title": "SELinux, certificados y seguridad", "level": "Avanzado", "minutes": 20, "file": "08-seguridad.md" },
+    { "id": "09-operacion-examenes", "title": "Contenedores, Git y resolución de problemas", "level": "Avanzado", "minutes": 20, "file": "09-operacion-examenes.md" }
+  ]
+}

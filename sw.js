@@ -1,5 +1,5 @@
 // Cambia V al publicar para forzar la renovación de la caché.
-const V = 'estudio-it-v6';
+const V = 'estudio-it-v7';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.webmanifest', 'icon.svg', 'content/fields.json',
   'fonts/overpass-latin-wght-normal.woff2', 'fonts/overpass-latin-wght-italic.woff2', 'fonts/overpass-mono-latin-wght-normal.woff2'];
 

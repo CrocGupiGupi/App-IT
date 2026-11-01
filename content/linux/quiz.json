@@ -1,0 +1,80 @@
+{
+  "01-fundamentos": [
+    { "q": "¿Dónde se guarda principalmente la configuración del sistema?", "options": ["/usr", "/etc", "/var", "/boot"], "answer": 1, "explain": "/var guarda datos variables, como los logs." },
+    { "q": "Borras el fichero original de un enlace duro. ¿Qué ocurre?", "options": ["Los datos siguen accesibles por el enlace", "El enlace queda roto", "Se borra también el enlace", "El sistema de ficheros da error"], "answer": 0, "explain": "Ambos nombres apuntan al mismo inodo; los datos se liberan al desaparecer el último." },
+    { "q": "¿Qué orden crea un archivo comprimido con gzip?", "options": ["tar -xzf c.tgz dir", "tar -tf c.tgz dir", "tar -cjf c.tgz dir", "tar -czf c.tgz dir"], "answer": 3, "explain": "c crea, z usa gzip y f indica el fichero. La j sería bzip2." },
+    { "q": "¿Qué sección de man documenta formatos de ficheros como crontab?", "options": ["1", "3", "5", "8"], "answer": 2, "explain": "man 5 crontab muestra el formato; la sección 8 es de administración." },
+    { "q": "¿Qué afirmaciones sobre los enlaces simbólicos son ciertas? (elige dos)", "options": ["Pueden cruzar sistemas de ficheros", "Comparten inodo con el original", "Se crean con ln sin opciones", "Quedan rotos si se borra el destino"], "answer": [0, 3], "explain": "Son ficheros que guardan una ruta." }
+  ],
+  "02-texto-scripts": [
+    { "q": "¿Qué orden envía salida y errores al mismo fichero?", "options": ["cmd 2>&1 > f", "cmd > f 2>&1", "cmd 2> f", "cmd | f"], "answer": 1, "explain": "El orden importa: primero se redirige la salida y luego los errores a ella." },
+    { "q": "¿Qué hace grep -v '^#' fichero?", "options": ["Muestra solo los comentarios", "Borra los comentarios del fichero", "Muestra las líneas que no empiezan por #", "Cuenta los comentarios"], "answer": 2, "explain": "-v invierte la coincidencia." },
+    { "q": "En un script, ¿qué contiene $#?", "options": ["El número de argumentos", "El primer argumento", "El código de salida", "El nombre del script"], "answer": 0, "explain": "$? es el código de salida y $0 el nombre." },
+    { "q": "¿Qué código de salida indica éxito?", "options": ["1", "255", "-1", "0"], "answer": 3, "explain": "Cualquier valor distinto de 0 indica error." },
+    { "q": "¿Qué comando localiza ficheros de más de 100 MB en /var?", "options": ["grep -r 100M /var", "du /var -size 100M", "find /var -size +100M", "locate -s 100M /var"], "answer": 2, "explain": "find filtra por tamaño, tipo, usuario y fecha." }
+  ],
+  "03-usuarios-permisos": [
+    { "q": "¿Cómo añades a ana al grupo wheel sin quitarle los demás?", "options": ["usermod -G wheel ana", "groupadd wheel ana", "chgrp wheel ana", "usermod -aG wheel ana"], "answer": 3, "explain": "Sin -a, -G sustituye los grupos secundarios." },
+    { "q": "¿Qué permisos numéricos equivalen a rw-r-----?", "options": ["640", "750", "644", "600"], "answer": 0, "explain": "rw- es 6, r-- es 4 y --- es 0." },
+    { "q": "En un directorio compartido, ¿qué hace que lo nuevo herede el grupo?", "options": ["Sticky", "SGID", "SUID", "umask 002"], "answer": 1, "explain": "Se aplica con chmod g+s o chmod 2770." },
+    { "q": "Con umask 027, ¿con qué permisos nace un fichero nuevo?", "options": ["644", "750", "640", "600"], "answer": 2, "explain": "Parte de 666 y se restan los permisos de la máscara." },
+    { "q": "¿Qué orden da lectura y escritura a ana sin cambiar propietario ni grupo?", "options": ["setfacl -m u:ana:rw f", "chown ana f", "chmod ana+rw f", "getfacl -m ana f"], "answer": 0, "explain": "Las ACL añaden entradas concretas; ls -l muestra un +." },
+    { "q": "¿Cómo se edita sudoers de forma segura?", "options": ["sudo vim /etc/sudoers", "chmod 666 /etc/sudoers", "visudo", "sudoedit --safe"], "answer": 2, "explain": "visudo valida la sintaxis antes de guardar." },
+    { "q": "¿Qué comando obliga a cambiar la contraseña en el próximo inicio?", "options": ["passwd -l ana", "chage -d 0 ana", "chage -M 0 ana", "usermod -L ana"], "answer": 1, "explain": "Pone a cero la fecha del último cambio." }
+  ],
+  "04-paquetes": [
+    { "q": "Falta el comando semanage. ¿Cómo averiguas qué paquete lo incluye?", "options": ["dnf search --file semanage", "rpm -qa semanage", "dnf info semanage", "dnf provides '*/semanage'"], "answer": 3, "explain": "provides busca por fichero contenido." },
+    { "q": "¿Qué comando indica a qué paquete pertenece /usr/bin/ls?", "options": ["rpm -qf /usr/bin/ls", "rpm -ql /usr/bin/ls", "rpm -qi /usr/bin/ls", "dnf list /usr/bin/ls"], "answer": 0, "explain": "En Debian, el equivalente es dpkg -S." },
+    { "q": "¿Dónde se definen los repositorios de dnf?", "options": ["/etc/apt/sources.list.d/", "/var/lib/rpm/", "/etc/yum.repos.d/", "/usr/share/dnf/"], "answer": 2, "explain": "Son ficheros con extensión .repo." },
+    { "q": "¿Qué opción de un fichero .repo valida las firmas de los paquetes?", "options": ["enabled=1", "gpgcheck=1", "baseurl", "sslverify=0"], "answer": 1, "explain": "Requiere además la clave pública en gpgkey." },
+    { "q": "¿Qué comando añade el repositorio Flathub?", "options": ["dnf config-manager --add-repo flathub", "flatpak install flathub", "flatpak remote-add --if-not-exists flathub URL", "flatpak update flathub"], "answer": 2, "explain": "Flatpak gestiona sus propios remotos, aparte de dnf." }
+  ],
+  "05-procesos-servicios": [
+    { "q": "¿Qué comando activa un servicio en el arranque y lo inicia ya?", "options": ["systemctl start --boot sshd", "systemctl enable --now sshd", "systemctl reload sshd", "service sshd enable"], "answer": 1, "explain": "enable sin --now solo actúa en el próximo arranque." },
+    { "q": "¿Qué valor nice da más prioridad a un proceso?", "options": ["-20", "0", "10", "19"], "answer": 0, "explain": "Solo root puede usar valores negativos." },
+    { "q": "¿Cómo fijas el arranque por defecto en modo texto?", "options": ["systemctl isolate multi-user.target", "systemctl mask graphical.target", "grubby --text", "systemctl set-default multi-user.target"], "answer": 3, "explain": "isolate cambia el target solo en el momento." },
+    { "q": "En cron, ¿cuándo se ejecuta 30 2 * * 1-5?", "options": ["A las 02:30 de lunes a viernes", "El día 2 de cada mes a las 00:30", "Cada 30 minutos", "A las 30:02 de cada día"], "answer": 0, "explain": "Campos: minuto, hora, día, mes y día de la semana." },
+    { "q": "¿Qué debes hacer para conservar el journal tras reiniciar?", "options": ["Instalar rsyslog", "Ejecutar journalctl --vacuum-time=0", "Fijar Storage=persistent y reiniciar systemd-journald", "Copiar /run/log a /tmp"], "answer": 2, "explain": "Los registros pasan a guardarse en /var/log/journal." },
+    { "q": "¿Qué parámetro se añade en GRUB para recuperar la contraseña de root?", "options": ["single", "init=/root", "rd.break", "selinux=2"], "answer": 2, "explain": "Después se monta /sysroot en escritura y se entra con chroot." },
+    { "q": "¿Por qué se crea /.autorelabel tras cambiar la contraseña de root con rd.break?", "options": ["Para activar el firewall", "Para que SELinux corrija las etiquetas al arrancar", "Para regenerar GRUB", "Para sincronizar la hora"], "answer": 1, "explain": "El nuevo shadow puede quedar con una etiqueta incorrecta." },
+    { "q": "¿Dónde se guarda un parámetro del kernel para que persista?", "options": ["/proc/sys", "/etc/sysctl.d/", "/var/log/sysctl", "/boot/kernel.conf"], "answer": 1, "explain": "/proc/sys refleja el valor actual, no persiste." }
+  ],
+  "06-almacenamiento": [
+    { "q": "¿Cómo se amplía un sistema de ficheros XFS?", "options": ["resize2fs", "xfs_growfs con el sistema montado", "xfs_repair -g", "tune2fs"], "answer": 1, "explain": "XFS no se puede reducir." },
+    { "q": "¿Qué comando amplía un LV y su sistema de ficheros a la vez?", "options": ["vgextend -r", "lvresize --fs-only", "pvresize -r", "lvextend -r -L +2G /dev/vg/lv"], "answer": 3, "explain": "-r redimensiona también el sistema de ficheros." },
+    { "q": "¿Cuál es el orden correcto de creación en LVM?", "options": ["LV, VG, PV", "VG, PV, LV", "PV, VG, LV", "PV, LV, VG"], "answer": 2, "explain": "Volúmenes físicos forman grupos, y de estos salen los lógicos." },
+    { "q": "¿Por qué conviene usar UUID en /etc/fstab?", "options": ["Los nombres de dispositivo pueden cambiar", "Es más rápido", "Lo exige XFS", "Cifra el disco"], "answer": 0, "explain": "UUID y etiquetas identifican el sistema de ficheros de forma estable." },
+    { "q": "¿Qué conviene ejecutar tras editar /etc/fstab?", "options": ["fsck -A", "swapon -a", "mount -a", "lvscan"], "answer": 2, "explain": "Detecta errores antes de que impidan arrancar." },
+    { "q": "df muestra el disco lleno pero du no lo explica. ¿Qué compruebas? (elige dos)", "options": ["Ficheros borrados abiertos con lsof +L1", "Inodos con df -i", "La zona horaria", "Los perfiles de tuned"], "answer": [0, 1], "explain": "También puede ocurrir que se agoten los inodos con espacio libre." },
+    { "q": "¿Qué opción de fstab espera a la red antes de montar NFS?", "options": ["nofail", "_netdev", "noauto", "sync"], "answer": 1, "explain": "nofail, en cambio, evita detener el arranque si falta el montaje." },
+    { "q": "¿Qué hace autofs?", "options": ["Monta bajo demanda y desmonta por inactividad", "Crea copias automáticas", "Amplía los LV llenos", "Formatea discos nuevos"], "answer": 0, "explain": "Se define en /etc/auto.master o /etc/auto.master.d/." }
+  ],
+  "07-redes": [
+    { "q": "¿Qué comando lista puertos en escucha con su proceso?", "options": ["ip route", "ss -tulpn", "nmcli device", "ping -l"], "answer": 1, "explain": "Sustituye a netstat en los sistemas actuales." },
+    { "q": "Añades un servicio con --permanent en firewalld. ¿Qué falta para aplicarlo ya?", "options": ["firewall-cmd --reload", "systemctl enable firewalld", "nft flush ruleset", "Reiniciar el equipo obligatoriamente"], "answer": 0, "explain": "--permanent solo modifica la configuración guardada." },
+    { "q": "¿Qué herramienta configura una IP estática persistente en RHEL?", "options": ["ifconfig", "ip addr add", "nmcli", "route"], "answer": 2, "explain": "ip addr add se pierde al reiniciar." },
+    { "q": "¿Qué parámetro debe activarse para enrutar paquetes entre interfaces?", "options": ["net.core.somaxconn", "vm.swappiness", "kernel.pid_max", "net.ipv4.ip_forward"], "answer": 3, "explain": "Hazlo permanente con un fichero en /etc/sysctl.d/." },
+    { "q": "¿Qué comando valida sshd_config antes de recargar?", "options": ["ssh -v", "sshd -t", "ssh-keygen -t", "systemctl check sshd"], "answer": 1, "explain": "Evita perder el acceso por un error de sintaxis." },
+    { "q": "¿Qué servicio sincroniza la hora en RHEL?", "options": ["ntpdate", "tuned", "chronyd", "crond"], "answer": 2, "explain": "chronyc sources muestra las fuentes y su estado." },
+    { "q": "¿Qué tipo de conexión une dos interfaces para tolerar el fallo de una?", "options": ["bond", "bridge", "vlan", "loopback"], "answer": 0, "explain": "El modo active-backup mantiene una activa y otra de reserva." },
+    { "q": "¿Qué directiva de nginx envía peticiones a un grupo de servidores?", "options": ["listen", "server_name", "root", "proxy_pass"], "answer": 3, "explain": "El grupo se define con un bloque upstream." }
+  ],
+  "08-seguridad": [
+    { "q": "¿Qué hace setenforce 0?", "options": ["Desactiva SELinux para siempre", "Pasa a permissive hasta reiniciar", "Pasa a enforcing", "Borra la política"], "answer": 1, "explain": "El cambio permanente se hace en /etc/selinux/config." },
+    { "q": "Tras mover una web a /var/www/html da error 403 y los permisos son correctos. ¿Qué aplicas?", "options": ["chmod 777", "setenforce 0 y listo", "restorecon -Rv /var/www/html", "semanage port"], "answer": 2, "explain": "mv conserva la etiqueta de origen." },
+    { "q": "¿Qué comando hace persistente un contexto en una ruta nueva?", "options": ["semanage fcontext -a -t tipo 'ruta(/.*)?'", "chcon -t tipo ruta", "restorecon -t tipo ruta", "setsebool tipo ruta"], "answer": 0, "explain": "Después se aplica con restorecon. chcon no sobrevive a un reetiquetado." },
+    { "q": "Apache debe escuchar en el puerto 8088 con SELinux activo. ¿Qué ejecutas?", "options": ["setsebool httpd_8088 on", "chcon -p 8088", "firewall-cmd --selinux", "semanage port -a -t http_port_t -p tcp 8088"], "answer": 3, "explain": "Además hay que abrir el puerto en el cortafuegos." },
+    { "q": "¿Qué opción de setsebool mantiene el cambio tras reiniciar?", "options": ["-P", "-R", "-a", "--save"], "answer": 0, "explain": "Sin -P, el cambio se pierde." },
+    { "q": "¿Qué comando muestra la fecha de caducidad de un certificado?", "options": ["openssl genrsa -days c.crt", "openssl verify -date c.crt", "openssl x509 -in c.crt -noout -enddate", "update-ca-trust --list"], "answer": 2, "explain": "Con -text verás todos los detalles." },
+    { "q": "¿Qué comandos ayudan a investigar una denegación de SELinux? (elige dos)", "options": ["ausearch -m AVC -ts recent", "sealert -a /var/log/audit/audit.log", "lsblk -f", "chage -l"], "answer": [0, 1], "explain": "Buscan el evento y proponen la causa." }
+  ],
+  "09-operacion-examenes": [
+    { "q": "¿Qué aporta la opción :Z en un volumen de Podman?", "options": ["Comprime el volumen", "Reetiqueta el contenido para SELinux", "Lo monta en solo lectura", "Lo cifra"], "answer": 1, "explain": "Sin ella, SELinux puede bloquear el acceso." },
+    { "q": "¿Qué permite que un servicio de usuario siga activo sin sesión iniciada?", "options": ["sudo -i", "systemctl mask", "crontab -e", "loginctl enable-linger"], "answer": 3, "explain": "Hace que el gestor de usuario arranque con el sistema." },
+    { "q": "¿Qué hace virsh destroy vm1?", "options": ["Fuerza el apagado sin borrarla", "Borra la máquina y sus discos", "Apaga de forma ordenada", "Quita el autoarranque"], "answer": 0, "explain": "virsh shutdown hace un apagado ordenado; undefine la elimina." },
+    { "q": "¿Qué orden crea una entrada en el historial de Git?", "options": ["git add", "git status", "git commit -m 'mensaje'", "git diff"], "answer": 2, "explain": "git add solo prepara los cambios." },
+    { "q": "¿Dónde consultas los límites reales de un proceso en marcha?", "options": ["/etc/fstab", "/proc/PID/limits", "/var/log/limits", "/etc/hosts"], "answer": 1, "explain": "ulimit solo muestra los de tu sesión." },
+    { "q": "¿Qué parámetro de GRUB pide el modo de rescate?", "options": ["systemd.unit=rescue.target", "rescue=yes", "init=rescue", "mode=single"], "answer": 0, "explain": "También existe systemd.unit=emergency.target." },
+    { "q": "¿Qué requisito general marca la RHCSA para todas las configuraciones?", "options": ["Usar solo interfaz gráfica", "Hacerlas con Ansible", "Publicarlas en Git", "Que persistan tras reiniciar sin intervención"], "answer": 3, "explain": "Reinicia y comprueba cada tarea al terminar." }
+  ]
+}
