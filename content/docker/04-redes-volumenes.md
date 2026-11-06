@@ -17,12 +17,14 @@
 
 ```bash
 docker network create backend
-docker run -d --name db --network backend postgres:16
-docker run -d --name api --network backend -p 8080:8080 miapi
-# desde "api" se accede a la base de datos como db:5432
+docker run -d --name db --network backend -e POSTGRES_PASSWORD=solo-laboratorio postgres:16
+docker exec db pg_isready -U postgres
+# Repite la comprobación hasta que acepte conexiones.
+docker run --rm --network backend postgres:16 pg_isready -h db -U postgres
 docker network ls
 docker network inspect backend
-docker network connect backend otro
+docker rm -f db
+docker network rm backend
 ```
 
 ### Publicar puertos
@@ -41,10 +43,12 @@ La capa de escritura del contenedor **se pierde al borrarlo**. Para persistir ha
 
 ```bash
 docker volume create datos
-docker run -d -v datos:/var/lib/postgresql/data postgres:16     # volumen
-docker run -d -v "$PWD":/app node:22 ...                        # bind mount
-docker run -d --mount type=bind,source="$PWD",target=/app,readonly node:22
-docker run -d --tmpfs /tmp alpine
+docker run -d --name db-datos -e POSTGRES_PASSWORD=solo-laboratorio -v datos:/var/lib/postgresql/data postgres:16
+# Repite esta comprobación hasta que acepte conexiones.
+docker exec db-datos pg_isready -U postgres
+docker run --rm -v "$PWD":/app node:22 ls /app                 # bind mount
+docker run --rm --mount type=bind,source="$PWD",target=/app,readonly node:22 ls /app
+docker run --rm --tmpfs /tmp alpine df -h /tmp
 docker volume ls
 docker volume inspect datos
 ```
@@ -55,11 +59,21 @@ docker volume inspect datos
 
 ### Copia de seguridad de un volumen
 
+Para una copia en frío de este ejemplo, detén PostgreSQL antes de copiar su directorio de datos. Usa la contraseña de ejemplo únicamente en el laboratorio y elige un nombre de volumen nuevo si `datos` ya existe.
+
 ```bash
-docker run --rm -v datos:/origen -v "$PWD":/copia alpine \
+docker stop db-datos
+docker run --rm -v datos:/origen:ro -v "$PWD":/copia alpine \
   tar czf /copia/datos.tgz -C /origen .
+docker start db-datos
 ```
 
 ## Drivers de volumen
 
 Permiten almacenamiento remoto (NFS, almacenamiento cloud) mediante plugins, y `docker volume create --driver local --opt type=nfs ...` para NFS.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/engine/storage/volumes/)
+- [Imagen oficial de PostgreSQL](https://hub.docker.com/_/postgres#environment-variables)
+- [Publicación de puertos](https://docs.docker.com/engine/network/port-publishing/)

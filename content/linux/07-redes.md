@@ -188,3 +188,7 @@ systemctl reload nginx
 ```
 
 Por defecto reparte en turno rotatorio; `least_conn` elige el servidor con menos conexiones. En RHEL, SELinux bloquea que nginx se conecte a la red hasta activar `setsebool -P httpd_can_network_connect on`.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://networkmanager.dev/docs/api/latest/nmcli.html)

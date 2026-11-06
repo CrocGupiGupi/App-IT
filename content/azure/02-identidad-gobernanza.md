@@ -73,3 +73,7 @@ Pares clave-valor para organizar y asignar costes. **No se heredan** automática
 - **Microsoft Purview** (gobierno de datos y cumplimiento) y **Service Trust Portal** (informes de cumplimiento).
 - **Azure Blueprints** se retira el 31 de enero de 2027; se sustituye por **Deployment Stacks** y **Template Specs**.
 - **Azure Landing Zones**: arquitectura de referencia para organizar suscripciones y gobernanza a escala.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/role-based-access-control/overview)

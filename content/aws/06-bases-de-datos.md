@@ -66,3 +66,7 @@ Almacén de datos columnar (OLAP), SQL sobre petabytes; **Redshift Spectrum** co
 
 - **RPO** (cuántos datos puedo perder) y **RTO** (cuánto puedo tardar en recuperar) determinan la estrategia.
 - Backups entre regiones, réplicas multirregión, Aurora Global, DynamoDB Global Tables.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)

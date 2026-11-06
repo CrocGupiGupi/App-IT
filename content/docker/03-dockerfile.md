@@ -96,3 +96,7 @@ RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci
 
 - Evita depender de `latest`: no es una versión, solo una etiqueta por defecto.
 - Fija versiones (`node:22.11-alpine`) o, para máxima reproducibilidad, el digest.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/reference/dockerfile/)

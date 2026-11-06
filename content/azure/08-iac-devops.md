@@ -95,3 +95,7 @@ Rolling, **blue-green** (dos entornos y conmutación), **canary** (porcentaje cr
 - Usa los **Microsoft Learn sandboxes** y los exámenes de práctica oficiales.
 - Aprende a decidir *qué servicio* usar y *por qué*: los exámenes plantean escenarios.
 - Controla el coste: borra los grupos de recursos al terminar y configura **presupuestos con alertas**.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview)

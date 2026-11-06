@@ -15,10 +15,20 @@ Si `df` muestra el disco lleno pero `du` no lo explica, busca ficheros borrados 
 
 ## Particiones GPT
 
+> Trabaja como administrador en una VM desechable con una instantánea y un disco secundario vacío de al menos 12 GiB. Los nombres de dispositivo son ejemplos. Compara el inventario antes y después de conectar el disco. Si no puedes identificarlo con certeza, detente.
+
+```bash
+lsblk -o NAME,PATH,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL,SERIAL
+findmnt -no SOURCE /
+lsblk -f /dev/vdb
+wipefs -n /dev/vdb
+```
+
+Continúa solo si `/dev/vdb` coincide con el disco de laboratorio, carece de firmas y particiones y está separado del disco del sistema. `mklabel` reemplaza la tabla de particiones.
+
 ```bash
 parted /dev/vdb mklabel gpt
 parted /dev/vdb mkpart datos xfs 1MiB 10GiB
-parted /dev/vdb set 1 lvm on
 parted /dev/vdb print
 gdisk /dev/vdb          # alternativa interactiva
 udevadm settle          # espera a que aparezca el dispositivo
@@ -35,12 +45,20 @@ udevadm settle          # espera a que aparezca el dispositivo
 | VFAT | `mkfs.vfat` | No habitual | No habitual |
 
 ```bash
+lsblk -f /dev/vdb
+findmnt --source /dev/vdb1
+# Solo si vdb1 es la partición nueva, sin firma ni montaje:
 mkfs.xfs -L datos /dev/vdb1
-mkdir /datos
+mkdir -p /datos
 mount /dev/vdb1 /datos
+printf 'dato persistente\n' > /datos/prueba.txt
 umount /datos
-fsck /dev/vdc1              # solo desmontado; en XFS, xfs_repair
+mount /dev/vdb1 /datos
+cat /datos/prueba.txt
+umount /datos
 ```
+
+El resultado esperado es `dato persistente` después del segundo montaje. Si falla, revisa `lsblk -f` y `findmnt /datos`. Para limpiar el laboratorio, desmonta, retira el disco desde el hipervisor y vuelve a la instantánea. Para diagnosticar XFS desmontado puedes consultar `xfs_repair -n` antes de reparar.
 
 ## Montaje permanente
 
@@ -61,37 +79,52 @@ Usa UUID o etiquetas, porque los nombres `/dev/vdb` pueden cambiar. `nofail` evi
 
 ## LVM
 
+Este ejercicio es independiente del anterior. Restaura la instantánea o usa otro disco vacío dedicado. Identifica y comprueba los discos con `lsblk -f` y `wipefs -n` antes de preparar cada partición. Marca como LVM únicamente las particiones de esta práctica. El ejemplo de ampliación requiere también un PV vacío en `/dev/vdc1`.
+
 LVM añade una capa flexible: **volúmenes físicos** (PV) forman un **grupo de volúmenes** (VG), del que salen **volúmenes lógicos** (LV).
 
 ```bash
 pvcreate /dev/vdb1
 vgcreate vgdatos /dev/vdb1
 lvcreate -n lvweb -L 5G vgdatos
-lvcreate -n lvlogs -l 100%FREE vgdatos
+lvcreate -n lvlogs -L 1G vgdatos
+lsblk -f /dev/vgdatos/lvweb
+# Formatea únicamente este LV recién creado.
 mkfs.xfs /dev/vgdatos/lvweb
+mkdir -p /web
+mount /dev/vgdatos/lvweb /web
 pvs; vgs; lvs              # resumen
 ```
 
 ### Ampliar
 
 ```bash
+lsblk -f /dev/vdc1
+wipefs -n /dev/vdc1
+# Tras confirmar que vdc1 pertenece al laboratorio y está vacía:
+pvcreate /dev/vdc1
 vgextend vgdatos /dev/vdc1          # añade un disco al grupo
 lvextend -r -L +2G /dev/vgdatos/lvweb   # -r también amplía el sistema de ficheros
 ```
 
 ### Retirar
 
+Comprueba con `findmnt /web` y `lvs -o vg_name,lv_name,devices` que el montaje y ambos LV corresponden al laboratorio. Los siguientes comandos borran sus datos. La secuencia presupone que añadiste el segundo PV.
+
 ```bash
 umount /web
 lvremove /dev/vgdatos/lvweb
+lvremove /dev/vgdatos/lvlogs
 vgreduce vgdatos /dev/vdc1
 vgremove vgdatos
-pvremove /dev/vdb1
+pvremove /dev/vdb1 /dev/vdc1
 ```
 
 Para sacar un disco con datos del grupo, primero se mueven sus extensiones con `pvmove /dev/vdc1`. Las instantáneas se crean con `lvcreate -s`.
 
 ## Swap
+
+Practica con una partición vacía dedicada, distinta de las usadas en los ejercicios anteriores. Comprueba con `lsblk -f /dev/vdb` y `wipefs -n /dev/vdb2` que la partición existe, no tiene datos y no está montada.
 
 ```bash
 mkswap /dev/vdb2
@@ -176,3 +209,8 @@ sar -d             # histórico
 ```
 
 En `iostat`, un `%util` cercano a 100 y una espera alta (`await`) indican un disco saturado.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/managing_storage_devices/index)
+- [LVM en RHEL 10](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/configuring_and_managing_logical_volumes/index)

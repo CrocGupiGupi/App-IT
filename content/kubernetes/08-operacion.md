@@ -96,3 +96,7 @@ El Git es la fuente de la verdad y un agente (**Argo CD**, **Flux**) sincroniza 
 ## Extender Kubernetes
 
 **CustomResourceDefinition (CRD)** añade tipos propios y un **operador** (controlador personalizado) los gestiona automáticamente (p. ej. bases de datos, cert-manager).
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/tasks/administer-cluster/)

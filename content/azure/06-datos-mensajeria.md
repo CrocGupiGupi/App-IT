@@ -66,3 +66,7 @@ Base de datos **NoSQL multimodelo**, distribuida globalmente, con latencias de m
 ## Continuidad de datos
 
 Copias de seguridad automáticas en PaaS, **geo-restauración**, replicación geográfica y grupos de conmutación por error. Define **RPO** (pérdida de datos tolerable) y **RTO** (tiempo de recuperación tolerable) antes de elegir.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/cosmos-db/overview)

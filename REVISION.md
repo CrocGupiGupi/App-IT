@@ -13,13 +13,13 @@ Contraste de las lecciones con fuentes oficiales. No es una revisión línea a l
 
 ## Docker
 
-- `docker rm -v`, `docker volume prune` y `docker system prune --volumes`: solo afectan a volúmenes anónimos ([rm](https://docs.docker.com/reference/cli/docker/container/rm/), [volume prune](https://docs.docker.com/reference/cli/docker/volume/prune/), [system prune](https://docs.docker.com/reference/cli/docker/system/prune/)).
+- `docker rm -v`, `docker volume prune` y `docker system prune --volumes`: por defecto, solo afectan a volúmenes anónimos en sus respectivos ámbitos. `docker volume prune -a` incluye también volúmenes locales con nombre que no estén en uso ([rm](https://docs.docker.com/reference/cli/docker/container/rm/), [volume prune](https://docs.docker.com/reference/cli/docker/volume/prune/), [system prune](https://docs.docker.com/reference/cli/docker/system/prune/)).
 - Docker Content Trust en retirada: Notary v1 se apaga el 08/12/2026 ([DCT](https://docs.docker.com/engine/security/trust/)).
 - Límites de Docker Hub ([uso](https://docs.docker.com/docker-hub/usage/)), licencia de Desktop ([licencia](https://docs.docker.com/subscription/desktop-license/)), containerd image store ([storage](https://docs.docker.com/engine/storage/drivers/select-storage-driver/)), `--link` ([obsoleto](https://docs.docker.com/engine/deprecated/)), Compose 5 y `version` ([Compose](https://docs.docker.com/reference/compose-file/version-and-name/)).
 
 ## Kubernetes
 
-- Ingress congelado, Gateway API recomendada ([Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)); retirada de `ingress-nginx` ([anuncio](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)).
+- Ingress congelado, Gateway API recomendada ([Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)); retirada de `ingress-nginx` en marzo de 2026 ([anuncio](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)).
 - Sidecars nativos ([sidecars](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)), in-place resize ([resize](https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/)), modos de kube-proxy ([virtual IPs](https://kubernetes.io/docs/reference/networking/virtual-ips/)), Endpoints obsoleta ([Service](https://kubernetes.io/docs/concepts/services-networking/service/)).
 - Upgrade con kubeadm ([upgrade](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)), swap ([instalación](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)), `ETCDCTL_API` y `etcdutl` ([etcd](https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/)).
 - Helm 4 ([versiones](https://helm.sh/docs/topics/version_skew/)) y cambio de catálogo de Bitnami ([aviso](https://github.com/bitnami/charts/issues/35164)).
@@ -60,7 +60,6 @@ Las preguntas son de elaboración propia. Se contrastaron con fuentes oficiales 
 
 - **Preguntas**: que `chcon` sea temporal no aparece en la parte leída de la guía de SELinux de RHEL 10. Tampoco se confirmaron en fuente oficial el nivel `Session` por defecto de Cosmos DB, los modos de Storage Gateway ni los comandos de Docker Scout en su versión actual.
 - **DCA**: dominios y pesos de la guía oficial (el PDF no se pudo leer).
-- **`ingress-nginx`**: la fecha de marzo de 2026 no se pudo leer en el texto de la página oficial.
 - **AI-200 y SC-500**: su temario no está cubierto por completo en este curso.
 - **SOA-C03**: el historial de versiones de la guía era incoherente entre páginas (v1.1 y v1.2).
 - **Exámenes en español**: varios se retiran tras el 31/12/2026; compruébalo antes de reservar.

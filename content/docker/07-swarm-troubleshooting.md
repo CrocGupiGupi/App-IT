@@ -88,3 +88,7 @@ El driver por defecto es `json-file`, que crece sin límite si no se rota:
 ## Siguiente paso
 
 Con Docker dominado, el paso natural es **Kubernetes**, que añade orquestación a gran escala, autocuración, descubrimiento de servicios y despliegues declarativos.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/engine/swarm/)

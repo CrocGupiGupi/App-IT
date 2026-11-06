@@ -117,3 +117,7 @@ securityContext:
 - Proteger la API (no exponerla a Internet) y el kubelet (autenticación y autorización activas).
 - Registro de auditoría (*audit log*) del API server.
 - Herramientas: Trivy, kube-bench (CIS Benchmark), Falco (detección en ejecución).
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/concepts/security/)

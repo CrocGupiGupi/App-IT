@@ -109,3 +109,7 @@ needs-restarting -r           # indica si hace falta reiniciar
 ```
 
 Para automatizar las actualizaciones existe `dnf-automatic` en Red Hat y `unattended-upgrades` en Debian y Ubuntu.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/managing_software_with_the_dnf_tool/index)

@@ -72,3 +72,33 @@ Recursos compartidos de archivos (SMB 3.x, NFS 4.1) montables desde Windows, Lin
 ## Discos gestionados
 
 Standard HDD < Standard SSD < Premium SSD < Premium SSD v2 < Ultra Disk (rendimiento creciente). Cifrados por defecto (SSE); *encryption at host* extiende el cifrado a discos temporales y cachés.
+
+## Laboratorio: crear y leer un blob privado
+
+Usa Bash con Azure CLI, una suscripción de prácticas y permisos para crear un grupo, una cuenta de almacenamiento y una asignación de rol. Revisa la suscripción con `az account show`. Elige nombres nuevos para el grupo y la cuenta. El precio depende de región, redundancia y operaciones. Con un blob de pocos bytes, el consumo previsto es una escritura, una lectura y almacenamiento hasta eliminar el grupo. Consulta la tarifa regional en las fuentes.
+
+```bash
+az group create -n estudio-it-blob-lab -l westeurope
+# Sustituye el nombre por uno globalmente único (solo minúsculas y dígitos).
+cuenta=estudioitblobcambia123
+scope=$(az storage account create -g estudio-it-blob-lab -n "$cuenta" -l westeurope --sku Standard_LRS --kind StorageV2 --allow-blob-public-access false --query id -o tsv)
+usuario=$(az ad signed-in-user show --query id -o tsv)
+az role assignment create --assignee-object-id "$usuario" --assignee-principal-type User --role "Storage Blob Data Contributor" --scope "$scope"
+```
+
+Cuando el rol se haya propagado, ejecuta los comandos de datos con autenticación de Entra ID.
+
+```bash
+printf "%s\n" "Estudio IT" > prueba.txt
+az storage container create --name practica --account-name "$cuenta" --auth-mode login
+az storage blob upload --container-name practica --name prueba.txt --file prueba.txt --account-name "$cuenta" --auth-mode login
+az storage blob download --container-name practica --name prueba.txt --file descargado.txt --account-name "$cuenta" --auth-mode login
+cat descargado.txt
+```
+
+El fichero debe contener «Estudio IT». Si aparece un error de autorización, confirma el ámbito del rol y espera su propagación. Para limpiar, verifica el nombre del grupo y ejecuta `az group delete -n estudio-it-blob-lab --yes` solo si lo creaste para este ejercicio. Confirma su eliminación con `az group exists -n estudio-it-blob-lab`.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/storage/common/storage-introduction)
+- [Precios de Blob Storage](https://azure.microsoft.com/en-us/pricing/details/storage/blobs/)

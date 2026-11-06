@@ -78,3 +78,7 @@ SSO centralizado para varias cuentas y aplicaciones (usuarios propios o de un Id
 | Impedir que una cuenta de Organizations use cierta región o servicio | SCP |
 | Limitar el máximo de permisos que un desarrollador puede delegar | Permissions boundary |
 | Aplicación fuera de AWS que necesita acceso | Roles Anywhere / federación |
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)

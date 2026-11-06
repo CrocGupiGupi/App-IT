@@ -115,3 +115,7 @@ Los navegadores comprueban el nombre en `subjectAltName`, no en `CN`. Protege la
 - Actualizaciones de seguridad al día.
 - sudo con el mínimo necesario.
 - Revisión de ficheros con SUID y de cuentas sin uso.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html/using_selinux/index)

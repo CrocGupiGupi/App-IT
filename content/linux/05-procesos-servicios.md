@@ -186,3 +186,7 @@ exit
 ```
 
 > Sin `/.autorelabel`, el nuevo `/etc/shadow` puede quedar con una etiqueta de SELinux incorrecta e impedir el inicio de sesión.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://www.freedesktop.org/software/systemd/man/latest/systemctl.html)

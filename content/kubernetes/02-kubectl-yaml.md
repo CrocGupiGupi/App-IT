@@ -91,3 +91,7 @@ kubectl get pods -o custom-columns=NOMBRE:.metadata.name,NODO:.spec.nodeName
 - Configura alias y autocompletado: `alias k=kubectl`, `source <(kubectl completion bash)`, `export do="--dry-run=client -o yaml"`.
 - Usa `kubectl explain` y la documentación oficial permitida en el examen.
 - **Comprueba siempre el contexto y el namespace** antes de cada tarea.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/reference/kubectl/)

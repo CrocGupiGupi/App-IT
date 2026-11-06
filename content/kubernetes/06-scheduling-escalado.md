@@ -109,3 +109,7 @@ Fórmula del HPA: `réplicas = ⌈réplicas_actuales × métrica_actual / métri
 ## Prioridades
 
 `PriorityClass` permite que Pods importantes desplacen (*preempt*) a otros menos prioritarios si no hay hueco.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/concepts/scheduling-eviction/)

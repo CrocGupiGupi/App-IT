@@ -108,3 +108,8 @@ kubectl port-forward svc/web 8080:80
 ```
 
 El fallo más común: un Service sin endpoints porque su `selector` no coincide con las etiquetas de los Pods, o porque los Pods no están Ready.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/concepts/services-networking/)
+- [Calendario de retirada de ingress-nginx](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/)

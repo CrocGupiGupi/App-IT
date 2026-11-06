@@ -2,6 +2,8 @@
 
 PWA estática para estudiar y preparar certificaciones de **Docker, Kubernetes, Azure, AWS y Linux**. Sin backend ni paso de compilación: HTML + CSS + JS puro. Funciona en PC, móvil y tablet, se puede instalar y sigue funcionando sin conexión.
 
+[Abrir Estudio IT](https://crocgupigupi.github.io/App-IT/) · [Certificaciones y precios](https://crocgupigupi.github.io/App-IT/#/certificaciones) · [Cobertura por examen](COBERTURA.md)
+
 ## Probar en local
 
 ```bash
@@ -17,6 +19,16 @@ python -m http.server 8000
 2. *Settings → Pages → Build and deployment → Deploy from a branch* → rama `main`, carpeta `/ (root)`.
 3. Todas las rutas son relativas, así que funciona en `https://usuario.github.io/repo/`.
 4. Al cambiar contenido, sube el número de `V` en `sw.js` para que los dispositivos renueven la caché.
+
+## Verificar antes de publicar
+
+Desde la raíz, con Node.js 22 o posterior:
+
+```bash
+node tools/validar.mjs
+```
+
+La comprobación valida rutas, preguntas, bloques y tablas con el renderizador de la app. Simula una instalación desde cero del service worker y comprueba que los recursos se sirven al cortar la red. Para comprobar la actualización real, abre la web publicada, deja completar la descarga, activa el modo avión y vuelve a abrir una lección sin visitar previamente.
 
 ## Añadir un campo nuevo (p. ej. Terraform)
 
@@ -41,6 +53,14 @@ Títulos `#`–`####`, párrafos, **negrita**, *cursiva*, `código`, enlaces, li
 - **Buscador** en el menú lateral sobre el texto de todas las lecciones.
 - **Certificaciones y precios**: enlace oficial, precio, formato e idioma de cada examen. Los precios son orientativos y llevan fecha de consulta.
 - Inicio con la siguiente lección, lecciones completadas, días seguidos, acierto en los tests y lecciones que conviene repasar.
+
+## Laboratorios
+
+- [Docker Compose y persistencia](content/docker/05-compose.md)
+- [Kubernetes y persistencia con PVC](content/kubernetes/05-config-almacenamiento.md)
+- [Linux y disco secundario](content/linux/06-almacenamiento.md)
+- [Azure y blob privado](content/azure/04-almacenamiento.md)
+- [AWS y objeto privado en S3](content/aws/04-almacenamiento.md)
 
 ## Diseño
 

@@ -121,3 +121,7 @@ Un arranque de rescate se pide añadiendo `systemd.unit=rescue.target` o `system
 - Tras `fstab`, ejecuta `mount -a`. Tras el cortafuegos, `--reload`.
 - Reinicia al final y comprueba cada tarea.
 - Practica en una máquina virtual con una instantánea para volver atrás.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.podman.io/en/latest/markdown/podman-systemd.unit.5.html)

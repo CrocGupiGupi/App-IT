@@ -136,3 +136,7 @@ getent passwd ana                        # comprueba que se resuelve
 ```
 
 `getent` consulta las fuentes de `/etc/nsswitch.conf`, así que muestra tanto cuentas locales como de LDAP. En Debian y Ubuntu, el equivalente de `authselect` es `pam-auth-update`.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://man7.org/linux/man-pages/man5/passwd.5.html)

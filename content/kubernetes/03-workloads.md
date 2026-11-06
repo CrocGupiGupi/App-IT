@@ -108,3 +108,7 @@ kubectl api-resources --namespaced=false     # recursos no namespaced: Node, PV,
 ```
 
 Se combinan con **ResourceQuota** (límites totales) y **LimitRange** (valores por defecto/mínimos/máximos por Pod).
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/concepts/workloads/controllers/)

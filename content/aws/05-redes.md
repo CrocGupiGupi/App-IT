@@ -82,3 +82,7 @@ Dos IP anycast estáticas que enrutan el tráfico TCP/UDP por la red troncal de 
 ## Elegir
 
 Aislar la BD → subred privada + SG que solo acepta tráfico del SG de la app · Salida a Internet desde subred privada → NAT Gateway · Acceder a S3 privadamente → gateway endpoint · Conectar muchas VPC → Transit Gateway.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)

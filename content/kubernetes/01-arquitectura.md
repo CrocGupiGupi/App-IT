@@ -51,3 +51,7 @@ Interfaces de extensión: **CRI** (runtime), **CNI** (red), **CSI** (almacenamie
 ## Ecosistema cloud native (CNCF)
 
 Kubernetes forma parte del ecosistema de la CNCF junto con Prometheus (métricas), Helm (paquetes), Envoy, Argo CD/Flux (GitOps), etc. KCNA evalúa este panorama.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://kubernetes.io/docs/concepts/architecture/)

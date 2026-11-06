@@ -86,3 +86,8 @@ docker system prune -a --volumes
 ## Idea importante
 
 Un contenedor vive mientras viva su **proceso principal (PID 1)**. Si ese proceso termina, el contenedor pasa a `exited`. Por eso un contenedor con `bash` sin `-it` termina al instante.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/reference/cli/docker/container/)
+- [Limpieza de volúmenes](https://docs.docker.com/reference/cli/docker/volume/prune/)

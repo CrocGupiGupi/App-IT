@@ -47,3 +47,7 @@ Desde Docker Engine 29, las instalaciones nuevas usan el **containerd image stor
 ## Para qué sirven
 
 Entornos reproducibles, empaquetar aplicaciones con sus dependencias, microservicios, integración continua y despliegue idéntico de desarrollo a producción.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/)

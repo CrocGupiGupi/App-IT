@@ -81,3 +81,7 @@ De menor a mayor coste y menor RTO/RPO:
 3. **Developer Associate (DVA-C03)** o **CloudOps Engineer Associate (SOA-C03, antes SysOps)**, y después las **Professional** (Solutions Architect, DevOps Engineer) o **Security Specialty**. SOA-C03 incluye contenedores y más multicuenta, multirregión e IaC.
 
 Consejos: haz laboratorios reales con presupuesto y alertas de coste, repasa los *whitepapers* y las páginas de preguntas frecuentes (FAQ) de los servicios principales, y practica con simulacros cronometrados.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)

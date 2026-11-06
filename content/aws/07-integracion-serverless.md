@@ -67,3 +67,7 @@ Ventajas: sin gestionar servidores, escalado automático, pago por uso. Retos: a
 ## Idempotencia
 
 Con "al menos una vez" (SQS Standard, EventBridge, Lambda asíncrona), el consumidor debe poder procesar el mismo mensaje varias veces sin efectos duplicados.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)

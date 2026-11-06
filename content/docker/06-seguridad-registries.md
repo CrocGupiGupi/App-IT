@@ -64,3 +64,7 @@ Las credenciales se guardan en `~/.docker/config.json`; usa un *credential helpe
 - Usa imágenes oficiales o de editores verificados.
 - Genera y conserva el **SBOM** (lista de componentes) y la procedencia (*provenance*) con BuildKit.
 - Anclar por digest evita que una etiqueta cambie bajo tus pies.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.docker.com/engine/security/)

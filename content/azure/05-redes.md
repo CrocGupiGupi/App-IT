@@ -64,3 +64,7 @@ SKU **Standard** (estática, zona-redundante, cerrada por defecto hasta que un N
 - **NAT Gateway**: salida a Internet con IP fija y escalable para una subred.
 - **DDoS Protection**: básica incluida; protección avanzada de pago.
 - **Network Watcher**: diagnóstico (comprobar conectividad, *IP flow verify*, *next hop*, captura de paquetes, NSG flow logs).
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview)

@@ -101,3 +101,7 @@ exit                        # sale de la sesión
 ```
 
 El guion de `su -` importa: sin él conservas el entorno del usuario anterior.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://www.gnu.org/software/coreutils/manual/html_node/)

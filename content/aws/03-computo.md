@@ -76,3 +76,7 @@ ECS/EKS pueden ejecutarse sobre instancias EC2 (tú gestionas los nodos) o Farga
 ## Elegir servicio
 
 Control total del SO → EC2 · Código corto por eventos → Lambda · Contenedores sin gestionar nodos → Fargate · Kubernetes → EKS · Web app rápida → Beanstalk / ECS Express Mode.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)

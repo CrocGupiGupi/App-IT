@@ -78,3 +78,31 @@ NFS gestionado, **multi-AZ**, elástico, accesible por miles de instancias Linux
 ## Elegir
 
 Archivos estáticos y backups → S3 · Disco de una EC2 → EBS · Compartido entre muchas EC2 Linux → EFS · Compartido Windows → FSx for Windows.
+
+## Laboratorio: cargar y descargar un objeto privado
+
+Usa Bash con AWS CLI y credenciales de una cuenta de prácticas autorizadas para gestionar un bucket. Confirma la cuenta con `aws sts get-caller-identity`. Se prevén una carga, una descarga y el almacenamiento de un objeto de pocos bytes hasta borrarlo. Consulta la tarifa regional en las fuentes.
+
+```bash
+region=eu-west-1
+# Elige un nombre de bucket nuevo y globalmente único.
+bucket=estudio-it-s3-cambia-123456
+aws s3api create-bucket --bucket "$bucket" --region "$region" --create-bucket-configuration LocationConstraint="$region"
+aws s3api get-public-access-block --bucket "$bucket" --region "$region"
+printf "%s\n" "Estudio IT" > prueba.txt
+aws s3 cp prueba.txt "s3://$bucket/prueba.txt" --region "$region"
+aws s3 cp "s3://$bucket/prueba.txt" descargado.txt --region "$region"
+cat descargado.txt
+```
+
+Comprueba que los cuatro controles de bloqueo público son `true` y que el fichero descargado contiene «Estudio IT». Si aparece `AccessDenied`, revisa el perfil y sus permisos. Si falla la creación, detente y elige un nombre nuevo. Borra solo el objeto y el bucket de este laboratorio.
+
+```bash
+aws s3 rm "s3://$bucket/prueba.txt" --region "$region"
+aws s3api delete-bucket --bucket "$bucket" --region "$region"
+```
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+- [Precios de Amazon S3](https://aws.amazon.com/s3/pricing/)

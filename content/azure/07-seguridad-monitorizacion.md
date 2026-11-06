@@ -67,3 +67,7 @@ Otros: **Azure Advisor** (recomendaciones de fiabilidad, seguridad, coste, rendi
 ## Cumplimiento
 
 Azure ofrece certificaciones (ISO 27001, SOC, RGPD/GDPR…). El cliente sigue siendo responsable de configurar correctamente sus recursos (responsabilidad compartida). Los informes están en el **Service Trust Portal**.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview)

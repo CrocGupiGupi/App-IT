@@ -71,3 +71,7 @@ az group delete -n rg-demo --yes
 - **Cost Management + Billing**: análisis, presupuestos y alertas.
 - **Etiquetas (tags)** para asignar costes por proyecto/departamento.
 - Ahorro: **Reservas** (1 o 3 años), **Savings Plan**, **Spot VMs**, **Azure Hybrid Benefit** (licencias existentes), apagar/desasignar lo no usado.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/overview)

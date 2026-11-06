@@ -50,3 +50,7 @@ aws ec2 describe-instances --query "Reservations[].Instances[].{id:InstanceId,es
 ## Marco de adopción
 
 **AWS Well-Architected Framework** (seis pilares: excelencia operativa, seguridad, fiabilidad, eficiencia del rendimiento, optimización de costes y sostenibilidad) y **Cloud Adoption Framework (CAF)**. Las **7 R** de la migración: Retire, Retain, Rehost, Relocate, Repurchase, Replatform y Refactor.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://docs.aws.amazon.com/whitepapers/latest/aws-overview/introduction.html)

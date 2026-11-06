@@ -137,3 +137,7 @@ esac
 ```
 
 > `&&` ejecuta lo siguiente si lo anterior funcionó; `||`, si falló. Entrecomilla siempre las variables para no romper rutas con espacios.
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://www.gnu.org/software/bash/manual/html_node/)

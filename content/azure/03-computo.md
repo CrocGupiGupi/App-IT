@@ -77,3 +77,7 @@ kubectl get nodes
 ## Escalado automático (Azure Monitor autoscale)
 
 Reglas por métrica (CPU > 70 % durante 10 min → +1 instancia) o por horario, con mínimos y máximos y periodos de enfriamiento (*cool-down*).
+
+## Fuentes
+
+- [Documentación oficial de referencia](https://learn.microsoft.com/en-us/azure/virtual-machines/overview)
